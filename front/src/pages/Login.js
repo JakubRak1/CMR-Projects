@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import api from "../api/login";
 import bcrypt from "bcryptjs";
+import Cookies from "js-cookie";
 
 const Login = ({ setUser }) => {
   const [username, setUsername] = useState("");
@@ -9,7 +10,7 @@ const Login = ({ setUser }) => {
 
   const navigate = useNavigate();
 
-  const loginHandle = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     const hashedPassword = bcrypt.hashSync(password, 10);
     const loginData = { username: username, password: hashedPassword };
@@ -17,18 +18,18 @@ const Login = ({ setUser }) => {
     try {
       const response = await api.post("/login", loginData);
       if (response.status === 200) {
-        setUser({ username: username, correct: true });
+        setUser({ username: username });
+        Cookies.set("user", { username: username }, { expires: 30 });
         navigate("/loged");
       }
     } catch (err) {
-      setUser({ correct: false });
       navigate("/loged");
     }
   };
 
   return (
     <div>
-      <form onSubmit={loginHandle}>
+      <form onSubmit={handleLogin}>
         <label>
           Username:
           <input
