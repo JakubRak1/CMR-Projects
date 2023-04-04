@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Cookies from "js-cookie";
-import "./../styles/cookies.css";
+import "./../static/styles/cookies.css";
 
 const CookiesMessage = () => {
   const [showBanner, setShowBanner] = useState(true);

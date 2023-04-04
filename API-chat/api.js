@@ -11,6 +11,12 @@ const users = [
   {
     username: "mariusz",
     password: "krukidziobia",
+    admin_rights: 1,
+  },
+  {
+    username: "123",
+    password: "123",
+    admin_rights: 0,
   },
 ];
 
@@ -36,7 +42,11 @@ app.post("/login", async (req, res) => {
   if (user) {
     const comparePassword = await bcrypt.compare(user.password, password);
     if (comparePassword) {
-      res.status(200).send("Login successful");
+      res.status(200).json({
+        status: "success",
+        resault: user.lenght,
+        user,
+      });
     } else {
       res.status(401).send("Invalid username or password");
     }

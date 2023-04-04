@@ -14,24 +14,39 @@ const Login = ({ setUser }) => {
     e.preventDefault();
     const hashedPassword = bcrypt.hashSync(password, 10);
     const loginData = { username: username, password: hashedPassword };
-    console.log(loginData);
     try {
       const response = await api.post("/login", loginData);
       if (response.status === 200) {
-        setUser({ username: username });
-        Cookies.set("user", { username: username }, { expires: 30 });
+        setUser({
+          username: response.data.user.username,
+          admin_rights: response.data.user.admin_rights,
+        });
+        Cookies.set(
+          "user",
+          {
+            username: response.data.user.username,
+            admin_rights: response.data.user.admin_rights,
+          },
+          { expires: 30 }
+        );
         navigate("/loged");
       }
     } catch (err) {
+      if (err.response) {
+        console.log("Złe haslo");
+      } else if (err.request) {
+        console.log(err.request.status);
+        console.log("cos jest nie tak z serwerem");
+      }
       navigate("/loged");
     }
   };
-
+  // Stylizing
   return (
     <div>
       <form onSubmit={handleLogin}>
         <label>
-          Username:
+          Nazwa użytkownika:
           <input
             type="text"
             name="username"
@@ -40,7 +55,7 @@ const Login = ({ setUser }) => {
           />
         </label>
         <label>
-          Password:
+          Hasło:
           <input
             type="password"
             name="password"
@@ -48,9 +63,9 @@ const Login = ({ setUser }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <button type="submit">Login</button>
+        <button type="submit">Zaloguj</button>
       </form>
-      <Link to="/">Get back to main page</Link>
+      <Link to="/">Zabierz mnie z powrotem na główną stronę</Link>
     </div>
   );
 };
