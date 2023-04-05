@@ -16,15 +16,33 @@ const MainNavbar = ({ user, setUser }) => {
     case "/login":
       navigationTitle = "Logowanie";
       break;
-    case "/loged":
-      navigationTitle = "Logowanie";
+    case "/routes":
+      navigationTitle = "Trasy";
+      break;
+    case "/schools":
+      navigationTitle = "Szkoły";
+      break;
+    case "/concerts":
+      navigationTitle = "Koncerty";
+      break;
+    case "/teams":
+      navigationTitle = "Zespoły";
+      break;
+    case "/musicians":
+      navigationTitle = "Pracownicy";
+      break;
+    case "/maps":
+      navigationTitle = "Mapy";
+      break;
+    case "/users":
+      navigationTitle = "Użytkownicy";
       break;
     default:
       navigationTitle = "Błąd";
-      console.log(location.pathname);
+    // console.log(location.pathname);
   }
-  // No logged user
   if (!user) {
+    // No logged user
     return (
       <>
         <div className="d-flex justify-content-between mainnav">
@@ -50,10 +68,11 @@ const MainNavbar = ({ user, setUser }) => {
     const handleLogout = async (e) => {
       e.preventDefault();
       Cookies.remove("user");
+      Cookies.remove("admin_rights");
       setUser(null);
       navigate("/");
     };
-    if (user.admin_rights === 0) {
+    if (user.admin_rights === "0") {
       return (
         <>
           <div className="d-flex justify-content-between mainnav">
@@ -66,14 +85,65 @@ const MainNavbar = ({ user, setUser }) => {
             </Link>
             <div className="subMainNav d-flex flex-column align-items-center">
               <div>{navigationTitle}</div>
-              {/* To fill links */}
-              <div> tu beda inne linki</div>
+              <div className="d-flex flex-row justify-content-between">
+                <Link
+                  to="/routes"
+                  className="text-decoration-none d-flex align-items-center"
+                >
+                  <button className="button-nav">
+                    <span className="text">TRASY</span>
+                  </button>
+                </Link>
+                <Link
+                  to="/schools"
+                  className="text-decoration-none d-flex align-items-center"
+                >
+                  <button className="button-nav">
+                    <span className="text">SZKOŁY</span>
+                  </button>
+                </Link>
+                <Link
+                  to="/concerts"
+                  className="text-decoration-none d-flex align-items-center"
+                >
+                  <button className="button-nav">
+                    <span className="text">KONCERTY</span>
+                  </button>
+                </Link>
+                <Link
+                  to="/teams"
+                  className="text-decoration-none d-flex align-items-center"
+                >
+                  <button className="button-nav">
+                    <span className="text">ZESPOŁY</span>
+                  </button>
+                </Link>
+                <Link
+                  to="/musicians"
+                  className="text-decoration-none d-flex align-items-center"
+                >
+                  <button className="button-nav">
+                    <span className="text">PRACOWNICY</span>
+                  </button>
+                </Link>
+                <Link
+                  to="/maps"
+                  className="text-decoration-none d-flex align-items-center"
+                >
+                  <button className="button-nav">
+                    <span className="text">MAPY</span>
+                  </button>
+                </Link>
+              </div>
             </div>
-            {/* Stylizing!! */}
-            <div>{user.username}</div>
-            <button className="button-logOut" onClick={handleLogout}>
-              LOG OUT
-            </button>
+            <div className="d-flex align-items-center">
+              <div className="usernameBox">{user.username}</div>
+            </div>
+            <div className="d-flex align-items-center">
+              <button className="button-logOut" onClick={handleLogout}>
+                LOG OUT
+              </button>
+            </div>
           </div>
         </>
       );
@@ -91,14 +161,73 @@ const MainNavbar = ({ user, setUser }) => {
             </Link>
             <div className="subMainNav d-flex flex-column align-items-center">
               <div>{navigationTitle}</div>
-              {/* To fill links */}
-              <div> tu beda inne linki dla admina</div>
+              <div className="d-flex flex-row justify-content-between">
+                <Link
+                  to="/routes"
+                  className="text-decoration-none d-flex align-items-center"
+                >
+                  <button className="button-nav">
+                    <span className="text">TRASY</span>
+                  </button>
+                </Link>
+                <Link
+                  to="/schools"
+                  className="text-decoration-none d-flex align-items-center"
+                >
+                  <button className="button-nav">
+                    <span className="text">SZKOŁY</span>
+                  </button>
+                </Link>
+                <Link
+                  to="/concerts"
+                  className="text-decoration-none d-flex align-items-center"
+                >
+                  <button className="button-nav">
+                    <span className="text">KONCERTY</span>
+                  </button>
+                </Link>
+                <Link
+                  to="/teams"
+                  className="text-decoration-none d-flex align-items-center"
+                >
+                  <button className="button-nav">
+                    <span className="text">ZESPOŁY</span>
+                  </button>
+                </Link>
+                <Link
+                  to="/musicians"
+                  className="text-decoration-none d-flex align-items-center"
+                >
+                  <button className="button-nav">
+                    <span className="text">PRACOWNICY</span>
+                  </button>
+                </Link>
+                <Link
+                  to="/maps"
+                  className="text-decoration-none d-flex align-items-center"
+                >
+                  <button className="button-nav">
+                    <span className="text">MAPY</span>
+                  </button>
+                </Link>
+                <Link
+                  to="/users"
+                  className="text-decoration-none d-flex align-items-center"
+                >
+                  <button className="button-nav">
+                    <span className="text">UŻYTKOWNICY</span>
+                  </button>
+                </Link>
+              </div>
             </div>
-            {/* Stylizing!! */}
-            <div>{user.username}</div>
-            <button className="button-logOut" onClick={handleLogout}>
-              LOG OUT
-            </button>
+            <div className="d-flex align-items-center">
+              <div className="usernameBox">{user.username}</div>
+            </div>
+            <div className="d-flex align-items-center">
+              <button className="button-logOut" onClick={handleLogout}>
+                LOG OUT
+              </button>
+            </div>
           </div>
         </>
       );

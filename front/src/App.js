@@ -4,15 +4,19 @@ import Cookies from "js-cookie";
 import Login from "./pages/Login";
 import Error from "./pages/Error";
 // import Home from "./pages/Home";
-import Logged from "./pages/Logged";
 import CookiesMessage from "./components/CookiesMessage";
 import MainNavbar from "./components/MainNavbar";
 
 function App() {
   const [user, setUser] = useState(null);
   useEffect(() => {
-    const savedUser = Cookies.get("user");
-    if (savedUser) {
+    const savedUserUsername = Cookies.get("user");
+    const savedUserRights = Cookies.get("admin_rights");
+    if (savedUserUsername && savedUserRights) {
+      const savedUser = {
+        username: savedUserUsername,
+        admin_rights: savedUserRights,
+      };
       setUser(savedUser);
     }
   }, []);
@@ -28,7 +32,13 @@ function App() {
         />
         <Route path="/" element={<Home user={user} setUser={setUser}></Home>} /> */}
         <Route path="/login" element={<Login setUser={setUser}> </Login>} />
-        <Route path="/loged" element={<Logged user={user}></Logged>} />
+        <Route path="/routes" element={<div>Trasy do robienia</div>} />
+        <Route path="/schools" element={<div>Szkoly do robienia</div>} />
+        <Route path="/concerts" element={<div>Kocerty do robienia</div>} />
+        <Route path="/teams" element={<div>Zespoły do robienia</div>} />
+        <Route path="/musicians" element={<div>Pracownicy do robienia</div>} />
+        <Route path="/maps" element={<div>Mapy do robienia</div>} />
+        <Route path="/users" element={<div>Użytkownicy do robienia</div>} />
         {/* To fix error page */}
         <Route path="*" element={<Error />} />
       </Routes>
