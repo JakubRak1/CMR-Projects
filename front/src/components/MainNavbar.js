@@ -45,7 +45,7 @@ const MainNavbar = ({ user, setUser }) => {
     // No logged user
     return (
       <>
-        <div className="d-flex justify-content-between mainnav">
+        <div className="d-flex justify-content-between main-nav">
           <Link to="/">
             <img
               className="logo"
@@ -53,12 +53,12 @@ const MainNavbar = ({ user, setUser }) => {
               alt="logo"
             />
           </Link>
-          <div className="subMainNav d-flex flex-column align-items-center">
+          <div className="sub-main-nav d-flex flex-column align-items-center">
             <div>{navigationTitle}</div>
             <div></div>
           </div>
           <Link to="/login" className="d-flex align-items-center">
-            <button className="button-logIn">LOG IN</button>
+            <button className="button-log-in">LOG IN</button>
           </Link>
         </div>
       </>
@@ -75,7 +75,7 @@ const MainNavbar = ({ user, setUser }) => {
     if (user.admin_rights === "0") {
       return (
         <>
-          <div className="d-flex justify-content-between mainnav">
+          <div className="d-flex justify-content-between main-nav">
             <Link to="/">
               <img
                 className="logo"
@@ -83,7 +83,7 @@ const MainNavbar = ({ user, setUser }) => {
                 alt="logo"
               />
             </Link>
-            <div className="subMainNav d-flex flex-column align-items-center">
+            <div className="sub-main-nav d-flex flex-column align-items-center">
               <div>{navigationTitle}</div>
               <div className="d-flex flex-row justify-content-between">
                 <Link
@@ -173,10 +173,10 @@ const MainNavbar = ({ user, setUser }) => {
               </div>
             </div>
             <div className="d-flex align-items-center">
-              <div className="usernameBox">{user.username}</div>
+              <div className="username-box">{user.username}</div>
             </div>
             <div className="d-flex align-items-center">
-              <button className="button-logOut" onClick={handleLogout}>
+              <button className="button-log-out" onClick={handleLogout}>
                 LOG OUT
               </button>
             </div>
@@ -187,7 +187,7 @@ const MainNavbar = ({ user, setUser }) => {
     } else
       return (
         <>
-          <div className="d-flex justify-content-between mainnav">
+          <div className="d-flex justify-content-between main-nav">
             <Link to="/">
               <img
                 className="logo"
@@ -195,7 +195,7 @@ const MainNavbar = ({ user, setUser }) => {
                 alt="logo"
               />
             </Link>
-            <div className="subMainNav d-flex flex-column align-items-center">
+            <div className="sub-main-nav d-flex flex-column align-items-center">
               <div>{navigationTitle}</div>
               <div className="d-flex flex-row justify-content-between">
                 <Link
@@ -299,10 +299,10 @@ const MainNavbar = ({ user, setUser }) => {
               </div>
             </div>
             <div className="d-flex align-items-center">
-              <div className="usernameBox">{user.username}</div>
+              <div className="username-box">{user.username}</div>
             </div>
             <div className="d-flex align-items-center">
-              <button className="button-logOut" onClick={handleLogout}>
+              <button className="button-log-out" onClick={handleLogout}>
                 LOG OUT
               </button>
             </div>

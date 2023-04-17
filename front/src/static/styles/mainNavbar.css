@@ -1,29 +1,28 @@
-.mainnav {
+.main-nav {
   margin: 1vw;
   padding: 1vw;
   border: solid black 1px;
   border-radius: 5px;
-  margin-bottom: 5vw;
 }
 .logo {
   height: 7vw;
 }
-.subMainNav {
+.sub-main-nav {
   margin-top: 0.5vw;
   margin-bottom: 0.5vw;
 }
 
-.subMainNav > div:nth-child(2) {
+.sub-main-nav > div:nth-child(2) {
   border-top: black 1px solid;
 }
 
-.subMainNav > div:first-child {
+.sub-main-nav > div:first-child {
   text-align: center;
   font-weight: bold;
   font-size: 1.5vw;
 }
 
-.subMainNav > div {
+.sub-main-nav > div {
   width: 70vw;
   height: 3vw;
 }
@@ -32,7 +31,7 @@ a {
   text-decoration: none;
 }
 
-.button-logIn {
+.button-log-in {
   appearance: none;
   background-color: transparent;
   box-sizing: border-box;
@@ -59,24 +58,24 @@ a {
   will-change: transform;
 }
 
-.button-logIn:disabled {
+.button-log-in:disabled {
   pointer-events: none;
 }
 
-.button-logIn:hover {
+.button-log-in:hover {
   color: #fff;
   background-color: #0d4671;
   box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
   transform: translateY(-2px);
 }
 
-.button-logIn:active {
+.button-log-in:active {
   box-shadow: none;
   transform: translateY(0);
   text-decoration: none;
 }
 
-.button-logOut {
+.button-log-out {
   appearance: none;
   background-color: transparent;
   box-sizing: border-box;
@@ -103,24 +102,24 @@ a {
   will-change: transform;
 }
 
-.button-logOut:disabled {
+.button-log-out:disabled {
   pointer-events: none;
 }
 
-.button-logOut:hover {
+.button-log-out:hover {
   color: #fff;
   background-color: #0d4671;
   box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
   transform: translateY(-2px);
 }
 
-.button-logOut:active {
+.button-log-out:active {
   box-shadow: none;
   transform: translateY(0);
   text-decoration: none;
 }
 
-.usernameBox {
+.username-box {
   display: inline-block;
   font-family: Roobert, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica,
     Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";

@@ -72,14 +72,27 @@ app.post("/login", async (req, res) => {
   }
 });
 
+// app.get("/schools", async (req, res) => {
+//   const data = schools;
+//   res.status(200).json({
+//     status: "success",
+//     resault: data.length,
+//     data,
+//   });
+// });
+
+// Timeout for loading porpuse
 app.get("/schools", async (req, res) => {
-  const data = schools;
-  res.status(200).json({
-    status: "success",
-    resault: data.length,
-    data,
-  });
+  setTimeout(() => {
+    const data = schools;
+    res.status(200).json({
+      status: "success",
+      resault: data.length,
+      data,
+    });
+  }, 5000);
 });
+
 // Start the server
 const PORT = 3000;
 app.listen(PORT, () => {

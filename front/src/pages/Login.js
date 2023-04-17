@@ -84,7 +84,7 @@ const Login = ({ setUser }) => {
           <div className="d-flex justify-content-center">
             <p
               ref={errRef}
-              className={errMsg ? "errmsg" : "hidden"}
+              className={errMsg ? "err-msg" : "hidden"}
               aria-live="assertive"
             >
               {errMsg}
@@ -139,7 +139,7 @@ const Login = ({ setUser }) => {
             />
             <button
               className="btn btn-primary mt-3 mb-2 p-3"
-              id="submitBtn"
+              id="submit-btn"
               disabled={!validUsername || !validPassword ? true : false}
             >
               Zaloguj

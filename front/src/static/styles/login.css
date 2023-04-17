@@ -2,7 +2,7 @@
   display: none;
 }
 
-.errmsg {
+.err-msg {
   background-color: lightpink;
   color: firebrick;
   font-weight: bold;
@@ -32,6 +32,6 @@
 }
 #username,
 #password,
-#submitBtn {
+#submit-btn {
   font-size: 1vw;
 }
