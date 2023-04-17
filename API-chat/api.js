@@ -10,13 +10,30 @@ app.use(cors());
 const users = [
   {
     username: "mariusz",
-    password: "Kruk1@",
+    password: "Krukidziobia1@",
     admin_rights: 1,
   },
   {
     username: "w1234",
     password: "User1@34",
     admin_rights: 0,
+  },
+];
+
+const schools = [
+  {
+    id: 1,
+    name: "dwUjka",
+    city: "KrakUw",
+    street: "Krzywa 10",
+    telephone: "887555444",
+  },
+  {
+    id: 2,
+    name: "trUjka",
+    city: "Wroclaw",
+    street: "Jakas tam 12",
+    telephone: "777888555",
   },
 ];
 
@@ -55,6 +72,14 @@ app.post("/login", async (req, res) => {
   }
 });
 
+app.get("/schools", async (req, res) => {
+  const data = schools;
+  res.status(200).json({
+    status: "success",
+    resault: data.length,
+    data,
+  });
+});
 // Start the server
 const PORT = 3000;
 app.listen(PORT, () => {

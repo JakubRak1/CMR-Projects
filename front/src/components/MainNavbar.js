@@ -90,7 +90,13 @@ const MainNavbar = ({ user, setUser }) => {
                   to="/routes"
                   className="text-decoration-none d-flex align-items-center"
                 >
-                  <button className="button-nav">
+                  <button
+                    className={
+                      location.pathname === "/routes"
+                        ? "button-nav-active"
+                        : "button-nav"
+                    }
+                  >
                     <span className="text">TRASY</span>
                   </button>
                 </Link>
@@ -98,7 +104,13 @@ const MainNavbar = ({ user, setUser }) => {
                   to="/schools"
                   className="text-decoration-none d-flex align-items-center"
                 >
-                  <button className="button-nav">
+                  <button
+                    className={
+                      location.pathname === "/schools"
+                        ? "button-nav-active"
+                        : "button-nav"
+                    }
+                  >
                     <span className="text">SZKOŁY</span>
                   </button>
                 </Link>
@@ -106,7 +118,13 @@ const MainNavbar = ({ user, setUser }) => {
                   to="/concerts"
                   className="text-decoration-none d-flex align-items-center"
                 >
-                  <button className="button-nav">
+                  <button
+                    className={
+                      location.pathname === "/concerts"
+                        ? "button-nav-active"
+                        : "button-nav"
+                    }
+                  >
                     <span className="text">KONCERTY</span>
                   </button>
                 </Link>
@@ -114,7 +132,13 @@ const MainNavbar = ({ user, setUser }) => {
                   to="/teams"
                   className="text-decoration-none d-flex align-items-center"
                 >
-                  <button className="button-nav">
+                  <button
+                    className={
+                      location.pathname === "/teams"
+                        ? "button-nav-active"
+                        : "button-nav"
+                    }
+                  >
                     <span className="text">ZESPOŁY</span>
                   </button>
                 </Link>
@@ -122,7 +146,13 @@ const MainNavbar = ({ user, setUser }) => {
                   to="/musicians"
                   className="text-decoration-none d-flex align-items-center"
                 >
-                  <button className="button-nav">
+                  <button
+                    className={
+                      location.pathname === "/musicians"
+                        ? "button-nav-active"
+                        : "button-nav"
+                    }
+                  >
                     <span className="text">PRACOWNICY</span>
                   </button>
                 </Link>
@@ -130,7 +160,13 @@ const MainNavbar = ({ user, setUser }) => {
                   to="/maps"
                   className="text-decoration-none d-flex align-items-center"
                 >
-                  <button className="button-nav">
+                  <button
+                    className={
+                      location.pathname === "/maps"
+                        ? "button-nav-active"
+                        : "button-nav"
+                    }
+                  >
                     <span className="text">MAPY</span>
                   </button>
                 </Link>
@@ -166,7 +202,13 @@ const MainNavbar = ({ user, setUser }) => {
                   to="/routes"
                   className="text-decoration-none d-flex align-items-center"
                 >
-                  <button className="button-nav">
+                  <button
+                    className={
+                      location.pathname === "/routes"
+                        ? "button-nav-active"
+                        : "button-nav"
+                    }
+                  >
                     <span className="text">TRASY</span>
                   </button>
                 </Link>
@@ -174,7 +216,13 @@ const MainNavbar = ({ user, setUser }) => {
                   to="/schools"
                   className="text-decoration-none d-flex align-items-center"
                 >
-                  <button className="button-nav">
+                  <button
+                    className={
+                      location.pathname === "/schools"
+                        ? "button-nav-active"
+                        : "button-nav"
+                    }
+                  >
                     <span className="text">SZKOŁY</span>
                   </button>
                 </Link>
@@ -182,7 +230,13 @@ const MainNavbar = ({ user, setUser }) => {
                   to="/concerts"
                   className="text-decoration-none d-flex align-items-center"
                 >
-                  <button className="button-nav">
+                  <button
+                    className={
+                      location.pathname === "/concerts"
+                        ? "button-nav-active"
+                        : "button-nav"
+                    }
+                  >
                     <span className="text">KONCERTY</span>
                   </button>
                 </Link>
@@ -190,7 +244,13 @@ const MainNavbar = ({ user, setUser }) => {
                   to="/teams"
                   className="text-decoration-none d-flex align-items-center"
                 >
-                  <button className="button-nav">
+                  <button
+                    className={
+                      location.pathname === "/teams"
+                        ? "button-nav-active"
+                        : "button-nav"
+                    }
+                  >
                     <span className="text">ZESPOŁY</span>
                   </button>
                 </Link>
@@ -198,7 +258,13 @@ const MainNavbar = ({ user, setUser }) => {
                   to="/musicians"
                   className="text-decoration-none d-flex align-items-center"
                 >
-                  <button className="button-nav">
+                  <button
+                    className={
+                      location.pathname === "/musicians"
+                        ? "button-nav-active"
+                        : "button-nav"
+                    }
+                  >
                     <span className="text">PRACOWNICY</span>
                   </button>
                 </Link>
@@ -206,7 +272,13 @@ const MainNavbar = ({ user, setUser }) => {
                   to="/maps"
                   className="text-decoration-none d-flex align-items-center"
                 >
-                  <button className="button-nav">
+                  <button
+                    className={
+                      location.pathname === "/maps"
+                        ? "button-nav-active"
+                        : "button-nav"
+                    }
+                  >
                     <span className="text">MAPY</span>
                   </button>
                 </Link>
@@ -214,7 +286,13 @@ const MainNavbar = ({ user, setUser }) => {
                   to="/users"
                   className="text-decoration-none d-flex align-items-center"
                 >
-                  <button className="button-nav">
+                  <button
+                    className={
+                      location.pathname === "/users"
+                        ? "button-nav-active"
+                        : "button-nav"
+                    }
+                  >
                     <span className="text">UŻYTKOWNICY</span>
                   </button>
                 </Link>

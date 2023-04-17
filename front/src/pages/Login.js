@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import api from "../api/login";
 import bcrypt from "bcryptjs";
 import Cookies from "js-cookie";
