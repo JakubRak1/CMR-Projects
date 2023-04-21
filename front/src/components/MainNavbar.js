@@ -6,41 +6,30 @@ const MainNavbar = ({ user, setUser }) => {
   const location = useLocation();
   const navigate = useNavigate();
   let navigationTitle = "";
-  switch (location.pathname) {
-    case "/":
+  const setNavigationTitle = function (pathname) {
+    if (pathname.includes("/home") || pathname === "/") {
       navigationTitle = "Strona startowa";
-      break;
-    case "/home":
-      navigationTitle = "Strona startowa";
-      break;
-    case "/login":
+    } else if (pathname.includes("/login")) {
       navigationTitle = "Logowanie";
-      break;
-    case "/routes":
+    } else if (pathname.includes("/routes")) {
       navigationTitle = "Trasy";
-      break;
-    case "/schools":
+    } else if (pathname.includes("/schools")) {
       navigationTitle = "Szkoły";
-      break;
-    case "/concerts":
+    } else if (pathname.includes("/concerts")) {
       navigationTitle = "Koncerty";
-      break;
-    case "/teams":
+    } else if (pathname.includes("/teams")) {
       navigationTitle = "Zespoły";
-      break;
-    case "/musicians":
+    } else if (pathname.includes("/musicians")) {
       navigationTitle = "Pracownicy";
-      break;
-    case "/maps":
+    } else if (pathname.includes("/maps")) {
       navigationTitle = "Mapy";
-      break;
-    case "/users":
+    } else if (pathname.includes("/users")) {
       navigationTitle = "Użytkownicy";
-      break;
-    default:
+    } else {
       navigationTitle = "Błąd";
-    // console.log(location.pathname);
-  }
+    }
+  };
+  setNavigationTitle(location.pathname);
   if (!user) {
     // No logged user
     return (
@@ -92,7 +81,7 @@ const MainNavbar = ({ user, setUser }) => {
                 >
                   <button
                     className={
-                      location.pathname === "/routes"
+                      location.pathname.includes("/routes")
                         ? "button-nav-active"
                         : "button-nav"
                     }
@@ -106,7 +95,7 @@ const MainNavbar = ({ user, setUser }) => {
                 >
                   <button
                     className={
-                      location.pathname === "/schools"
+                      location.pathname.includes("/schools")
                         ? "button-nav-active"
                         : "button-nav"
                     }
@@ -120,7 +109,7 @@ const MainNavbar = ({ user, setUser }) => {
                 >
                   <button
                     className={
-                      location.pathname === "/concerts"
+                      location.pathname.includes("/concerts")
                         ? "button-nav-active"
                         : "button-nav"
                     }
@@ -134,7 +123,7 @@ const MainNavbar = ({ user, setUser }) => {
                 >
                   <button
                     className={
-                      location.pathname === "/teams"
+                      location.pathname.includes("/teams")
                         ? "button-nav-active"
                         : "button-nav"
                     }
@@ -148,7 +137,7 @@ const MainNavbar = ({ user, setUser }) => {
                 >
                   <button
                     className={
-                      location.pathname === "/musicians"
+                      location.pathname.includes("/musicians")
                         ? "button-nav-active"
                         : "button-nav"
                     }
@@ -162,7 +151,7 @@ const MainNavbar = ({ user, setUser }) => {
                 >
                   <button
                     className={
-                      location.pathname === "/maps"
+                      location.pathname.includes("/maps")
                         ? "button-nav-active"
                         : "button-nav"
                     }
@@ -204,7 +193,7 @@ const MainNavbar = ({ user, setUser }) => {
                 >
                   <button
                     className={
-                      location.pathname === "/routes"
+                      location.pathname.includes("/routes")
                         ? "button-nav-active"
                         : "button-nav"
                     }
@@ -218,7 +207,7 @@ const MainNavbar = ({ user, setUser }) => {
                 >
                   <button
                     className={
-                      location.pathname === "/schools"
+                      location.pathname.includes("/schools")
                         ? "button-nav-active"
                         : "button-nav"
                     }
@@ -232,7 +221,7 @@ const MainNavbar = ({ user, setUser }) => {
                 >
                   <button
                     className={
-                      location.pathname === "/concerts"
+                      location.pathname.includes("/concerts")
                         ? "button-nav-active"
                         : "button-nav"
                     }
@@ -246,7 +235,7 @@ const MainNavbar = ({ user, setUser }) => {
                 >
                   <button
                     className={
-                      location.pathname === "/teams"
+                      location.pathname.includes("/teams")
                         ? "button-nav-active"
                         : "button-nav"
                     }
@@ -260,7 +249,7 @@ const MainNavbar = ({ user, setUser }) => {
                 >
                   <button
                     className={
-                      location.pathname === "/musicians"
+                      location.pathname.includes("/musicians")
                         ? "button-nav-active"
                         : "button-nav"
                     }
@@ -274,7 +263,7 @@ const MainNavbar = ({ user, setUser }) => {
                 >
                   <button
                     className={
-                      location.pathname === "/maps"
+                      location.pathname.includes("/maps")
                         ? "button-nav-active"
                         : "button-nav"
                     }
@@ -288,7 +277,7 @@ const MainNavbar = ({ user, setUser }) => {
                 >
                   <button
                     className={
-                      location.pathname === "/users"
+                      location.pathname.includes("/users")
                         ? "button-nav-active"
                         : "button-nav"
                     }
