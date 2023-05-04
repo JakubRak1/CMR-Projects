@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
-import api from "../api/login";
+import api from "../api/apiConfig";
 import bcrypt from "bcryptjs";
 import Cookies from "js-cookie";
 import "../static/styles/login.css";

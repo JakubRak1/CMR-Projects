@@ -5,11 +5,11 @@ import "./../static/styles/cookies.css";
 const CookiesMessage = () => {
   const [showBanner, setShowBanner] = useState(true);
   const handleAccept = () => {
-    Cookies.set("showBanner", false);
+    Cookies.set("show_cookies_msg", false);
     setShowBanner(false);
   };
   useEffect(() => {
-    const cookiesBanner = Cookies.get("showBanner");
+    const cookiesBanner = Cookies.get("show_cookies_msg");
     if (cookiesBanner) {
       setShowBanner(false);
     }

@@ -6,6 +6,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+// This API is only for testing purposes
 // Mock user data
 const users = [
   {
@@ -23,17 +24,43 @@ const users = [
 const schools = [
   {
     id: 1,
-    name: "dwUjka",
-    city: "KrakUw",
-    street: "Krzywa 10",
-    telephone: "887555444",
+    schoolName: "Lincoln",
+    streetName: "Main Street",
+    buildingNumber: "123",
+    phoneNumber: "884111555",
+    additionalInformation: "Near the city park",
   },
   {
     id: 2,
-    name: "trUjka",
-    city: "Wroclaw",
-    street: "Jakas tam 12",
-    telephone: "777888555",
+    schoolName: "Parkview High School",
+    streetName: "Oak Street",
+    buildingNumber: "678",
+    phoneNumber: "987111777",
+    additionalInformation: "Across from the public library",
+  },
+  {
+    id: 3,
+    schoolName: "Eastside Middle School",
+    streetName: "Maple Avenue",
+    buildingNumber: "456",
+    phoneNumber: "123111777",
+    additionalInformation: "Adjacent to the city sports complex",
+  },
+  {
+    id: 4,
+    schoolName: "Westlake Elementary School",
+    streetName: "Pine Street",
+    buildingNumber: "789",
+    phoneNumber: "546111777",
+    additionalInformation: "Behind the shopping center",
+  },
+  {
+    id: 5,
+    schoolName: "Northside High School",
+    streetName: "Elm Avenue",
+    buildingNumber: "234",
+    phoneNumber: "567511777",
+    additionalInformation: "Near the city center",
   },
 ];
 
@@ -72,6 +99,105 @@ app.post("/login", async (req, res) => {
   }
 });
 
+app.post("/schools/create-new", async (req, res) => {
+  console.log(req.body);
+  res.status(200).json({
+    status: "success",
+  });
+});
+
+app.get("/schools/id:id", async (req, res) => {
+  const id = req.params.id;
+  const school = schools.find((school) => school.id === parseInt(id));
+  console.log(school);
+  res.status(200).json({
+    status: "success",
+    data: school,
+  });
+});
+
+// Searching
+app.get("/schools/search", async (req, res) => {
+  let search = "";
+  let data = schools;
+  if (req.query.schoolName) {
+    search = req.query.schoolName;
+    data = data.filter((school) => school.schoolName.includes(search));
+  } else if (req.query.streetName) {
+    search = req.query.streetName;
+    data = data.filter((school) => school.streetName.includes(search));
+  } else if (req.query.buildingNumber) {
+    search = req.query.buildingNumber;
+    data = data.filter((school) => school.buildingNumber.includes(search));
+  } else {
+    search = req.query.phoneNumber;
+    data = data.filter((school) => school.phoneNumber.includes(search));
+  }
+  res.status(200).json({
+    status: "success",
+    resault: data.length,
+    data,
+    szuka: search,
+  });
+});
+
+// Sorting
+app.get("/schools/sortBySchoolNameAsc", async (req, res) => {
+  const data = schools;
+  data.sort((a, b) => a.schoolName.localeCompare(b.schoolName));
+  res.status(200).json({
+    status: "success",
+    data,
+  });
+});
+
+app.get("/schools/sortBySchoolNameDesc", async (req, res) => {
+  const data = schools;
+  data.sort((a, b) => b.schoolName.localeCompare(a.schoolName));
+  res.status(200).json({
+    status: "success",
+    data,
+  });
+});
+
+app.get("/query", async (req, res) => {
+  const query = req.query.schoolName;
+  console.log(query);
+});
+
+// Delete by specific id
+app.delete("/schools/:id", async (req, res) => {
+  const id = req.params.id;
+  const school = schools.find((school) => school.id === parseInt(id));
+  console.log(school);
+  res.status(200).json({
+    status: "success",
+    data: school,
+    message: "Deleted successfully",
+  });
+});
+
+// Delete by many ID
+app.delete("/schools", async (req, res) => {
+  const ids = req.body.id;
+  console.log(ids);
+  const result = schools.filter((school) => ids.includes(school.id.toString()));
+  // console.log(result);
+  if (result.length === 0) {
+    res.status(404).json({
+      status: "failed",
+      data: "Not found",
+    });
+  } else {
+    res.status(200).json({
+      status: "success",
+      data: result,
+      message: "Deleted successfully",
+    });
+  }
+});
+
+// No timeout
 // app.get("/schools", async (req, res) => {
 //   const data = schools;
 //   res.status(200).json({
@@ -85,12 +211,23 @@ app.post("/login", async (req, res) => {
 app.get("/schools", async (req, res) => {
   setTimeout(() => {
     const data = schools;
+    data.sort((a, b) => a.id - b.id);
     res.status(200).json({
       status: "success",
       resault: data.length,
       data,
     });
   }, 5000);
+});
+
+app.patch("/schools/:id", async (req, res) => {
+  const id = req.params.id;
+  const data = req.body;
+  console.log(data);
+  res.status(200).json({
+    status: "success",
+    data: data,
+  });
 });
 
 // Start the server

@@ -1,0 +1,25 @@
+.hidden {
+  display: none;
+}
+
+.err-msg {
+  background-color: lightpink;
+  color: firebrick;
+  font-weight: bold;
+  padding: 0.5vw;
+  margin-bottom: 0.5vw;
+  width: 25vw;
+  font-size: 1vw;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.valid {
+  color: limegreen;
+  margin-left: 1vw;
+}
+
+.invalid {
+  color: red;
+  margin-left: 1vw;
+}
