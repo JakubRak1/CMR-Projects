@@ -51,7 +51,7 @@ const Schools = ({ user }) => {
         return <LoadingIcon />;
       } else {
         return (
-          <>
+          <div>
             <ActionBarSchool idToDelete={selectedIds} />
             <table className="table">
               <thead className="table-dark">
@@ -79,7 +79,7 @@ const Schools = ({ user }) => {
                 ))}
               </tbody>
             </table>
-          </>
+          </div>
         );
       }
     } else {
@@ -89,11 +89,6 @@ const Schools = ({ user }) => {
         </>
       );
     }
-  } else
-    return (
-      <>
-        <div>Musisz być zalogowany aby dalej przejść</div>
-      </>
-    );
+  } else return <div>Musisz być zalogowany aby dalej przejść</div>;
 };
 export default Schools;
