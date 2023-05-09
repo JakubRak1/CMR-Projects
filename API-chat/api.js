@@ -160,6 +160,60 @@ app.get("/schools/sortBySchoolNameDesc", async (req, res) => {
   });
 });
 
+app.get("/schools/sortByStreetNameAsc", async (req, res) => {
+  const data = schools;
+  data.sort((a, b) => a.streetName.localeCompare(b.streetName));
+  res.status(200).json({
+    status: "success",
+    data,
+  });
+});
+
+app.get("/schools/sortByStreetNameDesc", async (req, res) => {
+  const data = schools;
+  data.sort((a, b) => b.streetName.localeCompare(a.streetName));
+  res.status(200).json({
+    status: "success",
+    data,
+  });
+});
+
+app.get("/schools/sortByBuildingNumberAsc", async (req, res) => {
+  const data = schools;
+  data.sort((a, b) => a.buildingNumber.localeCompare(b.buildingNumber));
+  res.status(200).json({
+    status: "success",
+    data,
+  });
+});
+
+app.get("/schools/sortByBuildingNumberDesc", async (req, res) => {
+  const data = schools;
+  data.sort((a, b) => b.buildingNumber.localeCompare(a.buildingNumber));
+  res.status(200).json({
+    status: "success",
+    data,
+  });
+});
+
+app.get("/schools/sortByPhoneNumberAsc", async (req, res) => {
+  const data = schools;
+  data.sort((a, b) => a.phoneNumber.localeCompare(b.phoneNumber));
+  res.status(200).json({
+    status: "success",
+    data,
+  });
+});
+
+app.get("/schools/sortByPhoneNumberDesc", async (req, res) => {
+  const data = schools;
+  data.sort((a, b) => b.phoneNumber.localeCompare(a.phoneNumber));
+  res.status(200).json({
+    status: "success",
+    data,
+  });
+});
+
 app.get("/query", async (req, res) => {
   const query = req.query.schoolName;
   console.log(query);

@@ -5,7 +5,6 @@ import ConnectionError from "../components/ConectionError";
 import SchoolsTable from "../components/SchoolsTable";
 import LoadingIcon from "../components/LoadingIcon";
 import ActionBarSchool from "../components/ActionBarSchool";
-
 // const URL_SCHOOLS = "/schools";
 
 const Schools = ({ user }) => {
