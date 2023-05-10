@@ -26,7 +26,10 @@ function App() {
       <Routes>
         <Route path="/" />
         <Route path="/home" />
-        <Route path="/login" element={<Login setUser={setUser}> </Login>} />
+        <Route
+          path="/login"
+          element={<Login setUser={setUser} user={user} />}
+        />
         <Route path="/routes" element={<div>Trasy do robienia</div>} />
         <Route path="/schools" element={<Schools user={user} />} />
         <Route path="/schools/*" element={<Schools user={user} />} />
