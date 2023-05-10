@@ -221,9 +221,10 @@ app.get("/query", async (req, res) => {
 
 // Delete by specific id
 app.delete("/schools/:id", async (req, res) => {
-  const id = req.params.id;
+  const id = req.params.id.replace("id", "");
   const school = schools.find((school) => school.id === parseInt(id));
   console.log(school);
+  console.log(id);
   res.status(200).json({
     status: "success",
     data: school,
