@@ -64,6 +64,21 @@ const schools = [
   },
 ];
 
+const routes = [
+  {
+    id: 1,
+    name: "Szalona droga",
+    number: 1,
+    description: "Suuuuuuuper",
+  },
+  {
+    id: 2,
+    name: "Nudna droga",
+    number: 2,
+    description: "Nuuuuuuda",
+  },
+];
+
 // Route to validate username
 app.get("/validate-username/:username", (req, res) => {
   const { username } = req.params;
@@ -266,6 +281,18 @@ app.delete("/schools", async (req, res) => {
 app.get("/schools", async (req, res) => {
   setTimeout(() => {
     const data = schools;
+    data.sort((a, b) => a.id - b.id);
+    res.status(200).json({
+      status: "success",
+      resault: data.length,
+      data,
+    });
+  }, 5000);
+});
+
+app.get("/routes", async (req, res) => {
+  setTimeout(() => {
+    const data = routes;
     data.sort((a, b) => a.id - b.id);
     res.status(200).json({
       status: "success",

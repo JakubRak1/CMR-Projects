@@ -53,7 +53,7 @@ const SchoolsTable = ({
         schoolName={schoolName}
         streetName={streetName}
         buildingNumber={buildingNumber}
-        patchNumber={phoneNumber}
+        phoneNumber={phoneNumber}
         additionalInformation={additionalInformation}
       />
       <ModalDeleteSchool
