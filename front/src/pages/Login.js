@@ -56,9 +56,17 @@ const Login = ({ setUser, user }) => {
   return (
     <div>
       {success || user ? (
-        <section className="d-flex flex-column">
-          <span>Zalogowano</span>
-          <Link to="/"> Zabierz mnie do głównej strony</Link>
+        <section className="d-flex flex-column align-items-center">
+          <span className="text-center" id="logged">
+            Zalogowano
+          </span>
+          <Link
+            className="text-decoration-none text-center mt-3"
+            id="link"
+            to="/"
+          >
+            Zabierz mnie do głównej strony
+          </Link>
         </section>
       ) : (
         <section>

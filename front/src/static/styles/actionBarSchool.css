@@ -64,3 +64,9 @@
   font-size: 1vw;
   font-weight: 600;
 }
+.border-over-span {
+  background-color: #6987c9;
+}
+input {
+  max-width: 15vw;
+}

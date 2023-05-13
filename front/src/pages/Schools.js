@@ -5,6 +5,8 @@ import ConnectionError from "../components/ConectionError";
 import SchoolsTable from "../components/SchoolsTable";
 import LoadingIcon from "../components/LoadingIcon";
 import ActionBarSchool from "../components/ActionBarSchool";
+import "../static/styles/schools.css";
+
 // const URL_SCHOOLS = "/schools";
 
 const Schools = ({ user }) => {
@@ -50,35 +52,37 @@ const Schools = ({ user }) => {
         return <LoadingIcon />;
       } else {
         return (
-          <div>
+          <section>
             <ActionBarSchool idToDelete={selectedIds} />
-            <table className="table">
-              <thead className="table-dark">
-                <tr>
-                  <th scope="col">Nazwa</th>
-                  <th scope="col">Ulica</th>
-                  <th scope="col">Numer budynku</th>
-                  <th scope="col">Telefon</th>
-                  <th scope="col">Dodatkowe informacje</th>
-                  <th scope="col">Opcje</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.data.map((school) => (
-                  <SchoolsTable
-                    key={school.id}
-                    id={school.id}
-                    schoolName={school.schoolName}
-                    streetName={school.streetName}
-                    buildingNumber={school.buildingNumber}
-                    phoneNumber={school.phoneNumber}
-                    additionalInformation={school.additionalInformation}
-                    onCheckboxChange={handleIdDeleteChange}
-                  />
-                ))}
-              </tbody>
-            </table>
-          </div>
+            <div className="d-flex justify-content-center mt-5">
+              <table className="table table-content">
+                <thead className="table-dark">
+                  <tr>
+                    <th scope="col">Nazwa</th>
+                    <th scope="col">Ulica</th>
+                    <th scope="col">Numer budynku</th>
+                    <th scope="col">Telefon</th>
+                    <th scope="col">Dodatkowe informacje</th>
+                    <th scope="col">Opcje</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.data.map((school) => (
+                    <SchoolsTable
+                      key={school.id}
+                      id={school.id}
+                      schoolName={school.schoolName}
+                      streetName={school.streetName}
+                      buildingNumber={school.buildingNumber}
+                      phoneNumber={school.phoneNumber}
+                      additionalInformation={school.additionalInformation}
+                      onCheckboxChange={handleIdDeleteChange}
+                    />
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
         );
       }
     } else {
@@ -88,6 +92,9 @@ const Schools = ({ user }) => {
         </>
       );
     }
-  } else return <div>Musisz być zalogowany aby dalej przejść</div>;
+  } else
+    return (
+      <ConnectionError errorMsg={"Musisz być zalogowany aby przejść dalej"} />
+    );
 };
 export default Schools;

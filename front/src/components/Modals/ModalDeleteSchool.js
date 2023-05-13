@@ -2,6 +2,7 @@ import { Modal } from "react-bootstrap";
 import ModalMessage from "./ModalMessage";
 import { useState } from "react";
 import api from "../../api/apiConfig";
+import styles from "../../static/styles/modals";
 
 const ModalDeleteSchool = (props) => {
   const [modalMessageOpen, setModalMessageOpen] = useState(false);
@@ -29,7 +30,7 @@ const ModalDeleteSchool = (props) => {
   };
 
   return (
-    <>
+    <section>
       <Modal
         size="lg"
         show={props.modalDeleteOpen}
@@ -37,13 +38,12 @@ const ModalDeleteSchool = (props) => {
         aria-labelledby="Usuń z bazy danych"
       >
         <Modal.Header closeButton>
-          <Modal.Title className="text-center">Usuń</Modal.Title>
+          <Modal.Title style={styles.title}>Usuń</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={styles.body}>
           <form onSubmit={deleteRecord}>
-            <label>
-              Czy na pewno chcesz usunąć zaznaczone rekory {props.id}
-            </label>
+            <span>Czy na pewno chcesz usunąć rekord?</span>
+            <br />
             <button className="btn btn-primary mt-3 mb-2 p-3" id="submit-btn">
               Usuń
             </button>
@@ -55,7 +55,7 @@ const ModalDeleteSchool = (props) => {
         message={message}
         setModalMessageOpen={setModalMessageOpen}
       />
-    </>
+    </section>
   );
 };
 export default ModalDeleteSchool;

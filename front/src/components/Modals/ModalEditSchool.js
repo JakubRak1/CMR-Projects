@@ -4,6 +4,7 @@ import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
 import ModalMessage from "./ModalMessage";
 import api from "../../api/apiConfig";
+import styles from "../../static/styles/modals";
 
 const ModalEditSchool = (props) => {
   const [modalMessageOpen, setModalMessageOpen] = useState(false);
@@ -142,7 +143,7 @@ const ModalEditSchool = (props) => {
   }, [formData.phoneNumber]);
 
   return (
-    <>
+    <section>
       <Modal
         size="lg"
         show={props.modalEditOpen}
@@ -150,11 +151,11 @@ const ModalEditSchool = (props) => {
         aria-labelledby="Edytuj rekord"
       >
         <Modal.Header closeButton>
-          <Modal.Title className="text-center">
+          <Modal.Title style={styles.title}>
             Edytuj {props.schoolName}
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body style={styles.body}>
           <form onSubmit={editRecord}>
             <div
               className={
@@ -330,7 +331,7 @@ const ModalEditSchool = (props) => {
         message={message}
         setModalMessageOpen={setModalMessageOpen}
       />
-    </>
+    </section>
   );
 };
 export default ModalEditSchool;

@@ -5,6 +5,7 @@ import api from "../../api/apiConfig";
 import ModalMessage from "./ModalMessage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
+import styles from "../../static/styles/modals";
 
 const URL_POST = "/schools/create-new";
 
@@ -163,7 +164,7 @@ const ModalCreateNewSchools = (props) => {
   }, [formData.phoneNumber]);
 
   return (
-    <div>
+    <section>
       <Modal
         size="lg"
         show={props.modalCreateOpen}
@@ -171,12 +172,12 @@ const ModalCreateNewSchools = (props) => {
         aria-labelledby="Dodaj nowy rekord danej kategori"
       >
         <Modal.Header closeButton>
-          <Modal.Title className="text-center">
+          <Modal.Title style={styles.title}>
             Dodaj nowy rekord do bazy danych
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form onSubmit={handlePostNewRecord}>
+          <form onSubmit={handlePostNewRecord} style={styles.body}>
             <div
               className={
                 validProps.validSchoolNameEdit || !formData.schoolName
@@ -356,7 +357,7 @@ const ModalCreateNewSchools = (props) => {
         message={message}
         setModalMessageOpen={setModalMessageOpen}
       />
-    </div>
+    </section>
   );
 };
 export default ModalCreateNewSchools;

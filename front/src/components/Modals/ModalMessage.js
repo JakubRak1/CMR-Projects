@@ -12,7 +12,16 @@ const ModalMessage = (props) => {
       aria-labelledby="Wiadomość od serwera"
     >
       <Modal.Header closeButton />
-      <Modal.Body>{props.message}</Modal.Body>
+      <Modal.Body
+        style={{
+          fontSize: "1vw",
+          textAlign: "center",
+          paddingBottom: "3vw",
+          marginTop: "2vw",
+        }}
+      >
+        <span>{props.message}</span>
+      </Modal.Body>
     </Modal>
   );
 };

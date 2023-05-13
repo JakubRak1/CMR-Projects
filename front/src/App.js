@@ -6,6 +6,7 @@ import Error from "./pages/Error";
 import Schools from "./pages/Schools";
 import CookiesMessage from "./components/CookiesMessage";
 import MainNavbar from "./components/MainNavbar";
+import "./static/styles/mainStyles.css";
 
 function App() {
   const [user, setUser] = useState(null);

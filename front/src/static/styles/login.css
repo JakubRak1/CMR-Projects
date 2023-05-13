@@ -30,6 +30,14 @@
 .text-1vw {
   font-size: 1vw;
 }
+
+#logged {
+  font-size: 1.5vw;
+}
+#link {
+  font-size: 1vw;
+  max-width: 15vw;
+}
 #username,
 #password,
 #submit-btn {

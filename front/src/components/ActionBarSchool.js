@@ -166,17 +166,25 @@ const ActionBarSchool = ({ idToDelete }) => {
   }, []);
 
   return (
-    <>
+    <section>
       <div className="d-flex justify-content-center">
         <div className="d-flex flex-column action-bar justify-content-between">
-          <div className="d-flex flex-row">
+          <div
+            className="d-flex flex-row justify-content-around mb-3"
+            id="first-col"
+          >
             <button onClick={handleModalCreateOpen} className="action-btn">
               <span>Dodaj Nowe</span>
             </button>
             <button onClick={handleModalDeleteOpen} className="action-btn">
               <span className="text">Usuń zaznaczone</span>
             </button>
-            <div className="d-flex flex-row">
+          </div>
+          <div
+            className="d-flex flex-row mb-3 justify-content-around"
+            id="second-col"
+          >
+            <span className="d-flex flex-row border-over-span">
               <button
                 className="text d-flex flex-row action-btn"
                 onClick={(e) => handleFilterByCat("schoolName", e)}
@@ -193,9 +201,8 @@ const ActionBarSchool = ({ idToDelete }) => {
                   />
                 </div>
               </button>
-              <div className="text d-flex flex-row bg-primary">
+              <div className="text d-flex flex-row border-over-span">
                 <input
-                  className="next-to-sort-text"
                   type="text"
                   onChange={(e) => {
                     setSearchSchoolName(e.target.value);
@@ -208,6 +215,8 @@ const ActionBarSchool = ({ idToDelete }) => {
                   <FontAwesomeIcon icon={faSearch} />
                 </button>
               </div>
+            </span>
+            <span className="d-flex flex-row border-over-span">
               <button
                 className="text d-flex flex-row action-btn"
                 onClick={(e) => handleFilterByCat("streetName", e)}
@@ -224,9 +233,8 @@ const ActionBarSchool = ({ idToDelete }) => {
                   />
                 </div>
               </button>
-              <div className="text d-flex flex-row bg-primary">
+              <div className="text d-flex flex-row border-over-span">
                 <input
-                  className="next-to-sort-text"
                   type="text"
                   onChange={(e) => {
                     setSearchStreetName(e.target.value);
@@ -240,75 +248,80 @@ const ActionBarSchool = ({ idToDelete }) => {
                   <FontAwesomeIcon icon={faSearch} />
                 </button>
               </div>
-            </div>
+            </span>
           </div>
-          <div className="d-flex flex-row">
-            <button
-              className="text d-flex flex-row action-btn"
-              onClick={(e) => handleFilterByCat("buildingNumber", e)}
-            >
-              <span className="next-to-sort-text">Numer budynku</span>
-              <div className="d-flex flex-column">
-                <FontAwesomeIcon
-                  className={sortBuildingNumberAsc ? "active" : "not-active"}
-                  icon={faSortUp}
-                />
-                <FontAwesomeIcon
-                  className={sortBuildingNumberDesc ? "active" : "not-active"}
-                  icon={faSortDown}
-                />
-              </div>
-            </button>
-            <div className="text d-flex flex-row bg-primary">
-              <input
-                className="next-to-sort-text"
-                type="number"
-                min="0"
-                onChange={(e) => {
-                  setSearchBuildingNumber(e.target.value);
-                }}
-              />
+          <div
+            className="d-flex flex-row justify-content-around"
+            id="third-col"
+          >
+            <span className="d-flex flex-row border-over-span">
               <button
                 className="text d-flex flex-row action-btn"
-                onClick={(e) => handleSearch("buildingNumber", e)}
-                value="buildingNumber"
+                onClick={(e) => handleFilterByCat("buildingNumber", e)}
               >
-                <FontAwesomeIcon icon={faSearch} />
+                <span className="next-to-sort-text">Numer budynku</span>
+                <div className="d-flex flex-column">
+                  <FontAwesomeIcon
+                    className={sortBuildingNumberAsc ? "active" : "not-active"}
+                    icon={faSortUp}
+                  />
+                  <FontAwesomeIcon
+                    className={sortBuildingNumberDesc ? "active" : "not-active"}
+                    icon={faSortDown}
+                  />
+                </div>
               </button>
-            </div>
-            <button
-              className="text d-flex flex-row action-btn"
-              onClick={(e) => handleFilterByCat("phoneNumber", e)}
-            >
-              <span className="next-to-sort-text">Numer Telefonu</span>
-              <div className="d-flex flex-column">
-                <FontAwesomeIcon
-                  className={sortPhoneNumberAsc ? "active" : "not-active"}
-                  icon={faSortUp}
+              <div className="text d-flex flex-row border-over-span">
+                <input
+                  type="number"
+                  min="0"
+                  onChange={(e) => {
+                    setSearchBuildingNumber(e.target.value);
+                  }}
                 />
-                <FontAwesomeIcon
-                  className={sortPhoneNumberDesc ? "active" : "not-active"}
-                  icon={faSortDown}
-                />
+                <button
+                  className="text d-flex flex-row action-btn"
+                  onClick={(e) => handleSearch("buildingNumber", e)}
+                  value="buildingNumber"
+                >
+                  <FontAwesomeIcon icon={faSearch} />
+                </button>
               </div>
-            </button>
-            <div className="text d-flex flex-row bg-primary">
-              <input
-                className="next-to-sort-text"
-                type="number"
-                min="111111111"
-                onChange={(e) => {
-                  setSearchPhoneNumber(e.target.value);
-                }}
-              />
+            </span>
+            <span className="d-flex flex-row border-over-span">
               <button
                 className="text d-flex flex-row action-btn"
-                onClick={(e) => handleSearch("phoneNumber", e)}
-                value="phoneNumber"
+                onClick={(e) => handleFilterByCat("phoneNumber", e)}
               >
-                <FontAwesomeIcon icon={faSearch} />
+                <span className="next-to-sort-text">Numer Telefonu</span>
+                <div className="d-flex flex-column">
+                  <FontAwesomeIcon
+                    className={sortPhoneNumberAsc ? "active" : "not-active"}
+                    icon={faSortUp}
+                  />
+                  <FontAwesomeIcon
+                    className={sortPhoneNumberDesc ? "active" : "not-active"}
+                    icon={faSortDown}
+                  />
+                </div>
               </button>
-            </div>
+              <div className="text d-flex flex-row border-over-span">
+                <input
+                  type="number"
+                  min="111111111"
+                  onChange={(e) => {
+                    setSearchPhoneNumber(e.target.value);
+                  }}
+                />
+                <button
+                  className="text d-flex flex-row action-btn"
+                  onClick={(e) => handleSearch("phoneNumber", e)}
+                  value="phoneNumber"
+                >
+                  <FontAwesomeIcon icon={faSearch} />
+                </button>
+              </div>
+            </span>
           </div>
         </div>
       </div>
@@ -321,7 +334,7 @@ const ActionBarSchool = ({ idToDelete }) => {
         setModalDeleteOpen={setModalDeleteOpen}
         idToDelete={idToDelete}
       />
-    </>
+    </section>
   );
 };
 

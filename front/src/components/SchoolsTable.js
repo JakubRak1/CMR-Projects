@@ -36,14 +36,24 @@ const SchoolsTable = ({
         <td>{phoneNumber}</td>
         <td>{additionalInformation}</td>
         <td>
-          <input
-            className="form-check-input"
-            type="checkbox"
-            onChange={handleCheckboxChange}
-            value={id}
-          />
-          <button onClick={handleOpenModalDelete}>Usuń</button>
-          <button onClick={handleOpenModalEdit}>Edytuj</button>
+          <div className="d-flex flex-row justify-content-around">
+            <div className="checkbox-wrapper-19">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                onChange={handleCheckboxChange}
+                value={id}
+                id={"cb" + id}
+              />
+              <label for={"cb" + id} className="check-box" />
+            </div>
+            <button className="action-btn" onClick={handleOpenModalDelete}>
+              Usuń
+            </button>
+            <button className="action-btn" onClick={handleOpenModalEdit}>
+              Edytuj
+            </button>
+          </div>
         </td>
       </tr>
       <ModalEditSchool
