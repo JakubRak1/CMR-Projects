@@ -9,7 +9,7 @@ const PAGES = [
   { path: "/schools", title: "Szkoły" },
   { path: "/concerts", title: "Koncerty" },
   { path: "/teams", title: "Zespoły" },
-  { path: "/musicians", title: "Pracownicy" },
+  { path: "/employees", title: "Pracownicy" },
   { path: "/maps", title: "Mapy" },
   { path: "/users", title: "Użytkownicy" },
 ];
@@ -19,7 +19,7 @@ let PAGES_URL_USER = [
   { path: "/schools", title: "Szkoły" },
   { path: "/concerts", title: "Koncerty" },
   { path: "/teams", title: "Zespoły" },
-  { path: "/musicians", title: "Pracownicy" },
+  { path: "/employees", title: "Pracownicy" },
   { path: "/maps", title: "Mapy" },
 ];
 let PAGES_URL_ADMIN = [
@@ -27,7 +27,7 @@ let PAGES_URL_ADMIN = [
   { path: "/schools", title: "Szkoły" },
   { path: "/concerts", title: "Koncerty" },
   { path: "/teams", title: "Zespoły" },
-  { path: "/musicians", title: "Pracownicy" },
+  { path: "/employees", title: "Pracownicy" },
   { path: "/maps", title: "Mapy" },
   { path: "/users", title: "Użytkownicy" },
 ];

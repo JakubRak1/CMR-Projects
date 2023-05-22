@@ -59,3 +59,4 @@ const ModalDeleteSchool = (props) => {
   );
 };
 export default ModalDeleteSchool;
+// Change to universal modal
