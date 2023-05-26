@@ -6,6 +6,7 @@ import ModalMessage from "./ModalMessage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import styles from "../../static/styles/modals";
+import { validation } from "../Validation/validation";
 
 const URL_POST = "/employees/create-new";
 
