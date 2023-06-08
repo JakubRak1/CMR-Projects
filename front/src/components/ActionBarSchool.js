@@ -11,7 +11,7 @@ import ModalDeleteManySchools from "./Modals/ModalDeleteManySchools";
 
 import "../static/styles/actionBarSchool.css";
 
-const ActionBarSchool = ({ idToDelete }) => {
+const ActionBarSchool = ({ idToDelete, user }) => {
   const [modalCreateOpen, setModalCreateOpen] = useState(false);
   const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
 
@@ -64,7 +64,6 @@ const ActionBarSchool = ({ idToDelete }) => {
 
   const handleFilterByCat = (filterCategory, e) => {
     let url = "";
-    console.log(filterCategory);
     if (filterCategory === "schoolName") {
       if (!sortSchoolNameAsc && !sortSchoolNameDesc) {
         setSortSchoolNameAsc(true);
@@ -169,17 +168,21 @@ const ActionBarSchool = ({ idToDelete }) => {
     <section>
       <div className="d-flex justify-content-center">
         <div className="d-flex flex-column action-bar justify-content-between">
-          <div
-            className="d-flex flex-row justify-content-around mb-3"
-            id="first-col"
-          >
-            <button onClick={handleModalCreateOpen} className="action-btn">
-              <span>Dodaj Nowe</span>
-            </button>
-            <button onClick={handleModalDeleteOpen} className="action-btn">
-              <span className="text">Usuń zaznaczone</span>
-            </button>
-          </div>
+          {user.admin_rights !== "0" ? (
+            <div
+              className="d-flex flex-row justify-content-around mb-3"
+              id="first-col"
+            >
+              <button onClick={handleModalCreateOpen} className="action-btn">
+                <span>Dodaj Nowe</span>
+              </button>
+              <button onClick={handleModalDeleteOpen} className="action-btn">
+                <span className="text">Usuń zaznaczone</span>
+              </button>
+            </div>
+          ) : (
+            <div></div>
+          )}
           <div
             className="d-flex flex-row mb-3 justify-content-around"
             id="second-col"

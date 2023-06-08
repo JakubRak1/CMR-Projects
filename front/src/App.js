@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import Login from "./pages/Login";
 import Error from "./pages/Error";
 import Schools from "./pages/Schools";
+import Teams from "./pages/Teams";
 import Employees from "./pages/Employees";
 import CookiesMessage from "./components/CookiesMessage";
 import MainNavbar from "./components/MainNavbar";
@@ -36,7 +37,8 @@ function App() {
         <Route path="/schools" element={<Schools user={user} />} />
         <Route path="/schools/*" element={<Schools user={user} />} />
         <Route path="/concerts" element={<div>Kocerty do robienia</div>} />
-        <Route path="/teams" element={<div>Zespoły do robienia</div>} />
+        <Route path="/teams" element={<Teams user={user} />} />
+        <Route path="/teams/*" element={<Teams user={user} />} />
         <Route path="/employees" element={<Employees user={user} />} />
         <Route path="/employees/*" element={<Employees user={user} />} />
         <Route path="/maps" element={<div>Mapy do robienia</div>} />

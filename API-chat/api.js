@@ -12,11 +12,16 @@ const users = [
   {
     username: "mariusz",
     password: "Krukidziobia1@",
-    admin_rights: 1,
+    admin_rights: 2,
   },
   {
     username: "w1234",
     password: "User1@34",
+    admin_rights: 1,
+  },
+  {
+    username: "watch",
+    password: "watch",
     admin_rights: 0,
   },
 ];
@@ -97,6 +102,24 @@ const employees = [
     name: "Dorota",
     surname: "Banioch",
     team: "truskawki",
+  },
+];
+
+const teams = [
+  {
+    id: 1,
+    name: "truskawki",
+    employees: 2,
+  },
+  {
+    id: 2,
+    name: "maliny",
+    employees: 3,
+  },
+  {
+    id: 3,
+    name: "buraczki",
+    employees: 0,
   },
 ];
 
@@ -310,9 +333,12 @@ app.get("/schools", async (req, res) => {
     });
   }, 5000);
 });
-
+//
+//
 // employee
-app.post("/employess/create-new", async (req, res) => {
+//
+//
+app.post("/employees/create-new", async (req, res) => {
   console.log(req.body);
   res.status(200).json({
     status: "success",
@@ -353,7 +379,7 @@ app.get("/employees/search", async (req, res) => {
 
 // Sorting
 
-app.get("/employess/sortByNameAsc", async (req, res) => {
+app.get("/employees/sortByNameAsc", async (req, res) => {
   const data = employees;
   data.sort((a, b) => a.name.localeCompare(b.name));
   res.status(200).json({
@@ -362,7 +388,7 @@ app.get("/employess/sortByNameAsc", async (req, res) => {
   });
 });
 
-app.get("/employess/sortByNameDesc", async (req, res) => {
+app.get("/employees/sortByNameDesc", async (req, res) => {
   const data = employees;
   data.sort((a, b) => b.name.localeCompare(a.name));
   res.status(200).json({
@@ -389,7 +415,7 @@ app.get("/employees/sortBySurnameDesc", async (req, res) => {
   });
 });
 
-app.get("/employees/sortByTeamsAsc", async (req, res) => {
+app.get("/employees/sortByTeamAsc", async (req, res) => {
   const data = employees;
   data.sort((a, b) => a.team.localeCompare(b.team));
   res.status(200).json({
@@ -398,7 +424,7 @@ app.get("/employees/sortByTeamsAsc", async (req, res) => {
   });
 });
 
-app.get("/employees/sortByTeamsDesc", async (req, res) => {
+app.get("/employees/sortByTeamDesc", async (req, res) => {
   const data = employees;
   data.sort((a, b) => b.team.localeCompare(a.team));
   res.status(200).json({
@@ -410,12 +436,12 @@ app.get("/employees/sortByTeamsDesc", async (req, res) => {
 // Delete by specific id
 app.delete("/employees/:id", async (req, res) => {
   const id = req.params.id.replace("id", "");
-  const employees = employees.find((employee) => employee.id === parseInt(id));
-  console.log(employees);
+  const employee = employees.find((employee) => employee.id === parseInt(id));
+  console.log(employee);
   console.log(id);
   res.status(200).json({
     status: "success",
-    data: employees,
+    data: employee,
     message: "Deleted successfully",
   });
 });
@@ -455,8 +481,115 @@ app.get("/employees", async (req, res) => {
   }, 5000);
 });
 
-// Routes
+//
+//
+// teams
+//
+//
+app.post("/teams/create-new", async (req, res) => {
+  console.log(req.body);
+  res.status(200).json({
+    status: "success",
+  });
+});
 
+app.get("/teams/id:id", async (req, res) => {
+  const id = req.params.id;
+  const teams = teams.find((team) => team.id === parseInt(id));
+  console.log(teams);
+  res.status(200).json({
+    status: "success",
+    data: teams,
+  });
+});
+
+app.get("/teams/search", async (req, res) => {
+  let search = "";
+  let data = teams;
+  if (req.query.name) {
+    search = req.query.name;
+    data = data.filter((team) => team.name.includes(search));
+  } else if (req.query.employees) {
+    search = req.query.employees;
+    data = data.filter((team) => team.employees === parseInt(search));
+  }
+  res.status(200).json({
+    status: "success",
+    resault: data.length,
+    data,
+    search: search,
+  });
+});
+
+// Sorting
+
+app.get("/teams/sortByNameAsc", async (req, res) => {
+  const data = teams;
+  data.sort((a, b) => a.name.localeCompare(b.name));
+  res.status(200).json({
+    status: "success",
+    data,
+  });
+});
+
+app.get("/teams/sortByNameDesc", async (req, res) => {
+  const data = teams;
+  data.sort((a, b) => b.name.localeCompare(a.name));
+  res.status(200).json({
+    status: "success",
+    data,
+  });
+});
+
+app.get("/teams/sortByEmployeesAsc", async (req, res) => {
+  const data = teams;
+  data.sort((a, b) => a.employees - b.employees);
+  res.status(200).json({
+    status: "success",
+    data,
+  });
+});
+
+app.get("/teams/sortByEmployeesDesc", async (req, res) => {
+  const data = teams;
+  data.sort((a, b) => b.employees - a.employees);
+  res.status(200).json({
+    status: "success",
+    data,
+  });
+});
+
+// Delete by specific id
+app.delete("/teams/:id", async (req, res) => {
+  const id = req.params.id.replace("id", "");
+  const teams = teams.find((team) => team.id === parseInt(id));
+  console.log(teams);
+  console.log(id);
+  res.status(200).json({
+    status: "success",
+    data: teams,
+    message: "Deleted successfully",
+  });
+});
+
+// Timeout for loading porpuse
+app.get("/teams", async (req, res) => {
+  setTimeout(() => {
+    const data = teams;
+    data.sort((a, b) => a.id - b.id);
+    res.status(200).json({
+      status: "success",
+      resault: data.length,
+      data,
+    });
+  }, 5000);
+});
+
+//
+//
+// Routes
+//
+//
 app.get("/routes", async (req, res) => {
   setTimeout(() => {
     const data = routes;

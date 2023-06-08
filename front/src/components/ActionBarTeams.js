@@ -6,25 +6,20 @@ import {
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate, useLocation } from "react-router-dom";
-import ModalCreateNewEmployees from "./Modals/ModalCreateNewEmployees";
-import ModalDeleteManyEmployees from "./Modals/ModalDeleteManyEmployees";
+import ModalCreateNewTeams from "./Modals/ModalCreateNewTeams";
 
 import "../static/styles/actionBarSchool.css";
 
-const ActionBarEmployees = ({ idToDelete, user, teams }) => {
+const ActionBarTeams = ({ user }) => {
   const [modalCreateOpen, setModalCreateOpen] = useState(false);
-  const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
 
   const [sortNameAsc, setSortNameAsc] = useState(false);
   const [sortNameDesc, setSortNameDesc] = useState(false);
-  const [sortSurnameAsc, setSortSurnameAsc] = useState(false);
-  const [sortSurnameDesc, setSortSurnameDesc] = useState(false);
-  const [sortTeamAsc, setSortTeamAsc] = useState(false);
-  const [sortTeamDesc, setSortTeamDesc] = useState(false);
+  const [sortEmployeesAsc, setSortEmployeesAsc] = useState(false);
+  const [sortEmployeesDesc, setSortEmployeesDesc] = useState(false);
 
   const [searchName, setSearchName] = useState("");
-  const [searchSurname, setSearchSurname] = useState("");
-  const [searchTeam, setSearchTeam] = useState("");
+  const [searchEmployees, setSearchEmployees] = useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -33,21 +28,15 @@ const ActionBarEmployees = ({ idToDelete, user, teams }) => {
     setModalCreateOpen(true);
   };
 
-  const handleModalDeleteOpen = () => {
-    setModalDeleteOpen(true);
-  };
-
   const handleSearch = (searchCat, e) => {
     let url = "";
     switch (searchCat) {
       case "name":
-        url = `../employees/search?${searchCat}=${searchName}`;
+        url = `../teams/search?${searchCat}=${searchName}`;
         break;
-      case "surname":
-        url = `../employees/search?${searchCat}=${searchSurname}`;
-        break;
-      case "team":
-        url = `../employees/search?${searchCat}=${searchTeam}`;
+      case "employees":
+        console.log(searchEmployees);
+        url = `../teams/search?${searchCat}=${searchEmployees}`;
         break;
       default:
         break;
@@ -61,57 +50,38 @@ const ActionBarEmployees = ({ idToDelete, user, teams }) => {
     if (filterCategory === "name") {
       if (!sortNameAsc && !sortNameDesc) {
         setSortNameAsc(true);
-        url = `../employees/sortByNameAsc`;
+        url = `../teams/sortByNameAsc`;
         navigate(url, { replace: true });
         window.location.reload();
       } else if (sortNameAsc) {
         setSortNameAsc(false);
         setSortNameDesc(true);
-        url = `../employees/sortByNameDesc`;
+        url = `../teams/sortByNameDesc`;
         navigate(url, { replace: true });
         window.location.reload();
       } else {
         setSortNameAsc(true);
         setSortNameDesc(false);
-        url = `../employees/sortByNameAsc`;
+        url = `../teams/sortByNameAsc`;
         navigate(url, { replace: true });
         window.location.reload();
       }
-    } else if (filterCategory === "surname") {
-      if (!sortSurnameAsc && !sortSurnameDesc) {
-        setSortSurnameAsc(true);
-        url = `../employees/sortBySurnameAsc`;
+    } else if (filterCategory === "employees") {
+      if (!sortEmployeesAsc && !sortEmployeesDesc) {
+        setSortEmployeesAsc(true);
+        url = `../teams/sortByEmployeesAsc`;
         navigate(url, { replace: true });
         window.location.reload();
-      } else if (sortSurnameAsc) {
-        setSortSurnameAsc(false);
-        setSortSurnameDesc(true);
-        url = `../employees/sortBySurnameDesc`;
-        navigate(url, { replace: true });
-        window.location.reload();
-      } else {
-        setSortSurnameAsc(true);
-        setSortSurnameDesc(false);
-        url = `../employees/sortBySurnameAsc`;
-        navigate(url, { replace: true });
-        window.location.reload();
-      }
-    } else if (filterCategory === "team") {
-      if (!sortTeamAsc && !sortTeamDesc) {
-        setSortTeamAsc(true);
-        url = `../employees/sortByTeamAsc`;
-        navigate(url, { replace: true });
-        window.location.reload();
-      } else if (sortTeamAsc) {
-        setSortTeamAsc(false);
-        setSortTeamDesc(true);
-        url = `../employees/sortByTeamDesc`;
+      } else if (sortEmployeesAsc) {
+        setSortEmployeesAsc(false);
+        setSortEmployeesDesc(true);
+        url = `../teams/sortByEmployeesDesc`;
         navigate(url, { replace: true });
         window.location.reload();
       } else {
-        setSortTeamAsc(true);
-        setSortTeamDesc(false);
-        url = `../employees/sortByTeamAsc`;
+        setSortEmployeesAsc(true);
+        setSortEmployeesDesc(false);
+        url = `../teams/sortByEmployeesAsc`;
         navigate(url, { replace: true });
         window.location.reload();
       }
@@ -122,12 +92,9 @@ const ActionBarEmployees = ({ idToDelete, user, teams }) => {
     const pathnames = {
       sortByNameAsc: setSortNameAsc,
       sortByNameDesc: setSortNameDesc,
-      sortBySurnameAsc: setSortSurnameAsc,
-      sortBySurnameDesc: setSortSurnameDesc,
-      sortByTeamAsc: setSortTeamAsc,
-      sortByTeamDesc: setSortTeamDesc,
+      sortByEmployeesAsc: setSortEmployeesAsc,
+      sortByEmployeesDesc: setSortEmployeesDesc,
     };
-
     const pathname = location.pathname.substr(
       location.pathname.lastIndexOf("/") + 1
     );
@@ -149,9 +116,6 @@ const ActionBarEmployees = ({ idToDelete, user, teams }) => {
               <button onClick={handleModalCreateOpen} className="action-btn">
                 <span>Dodaj Nowe</span>
               </button>
-              <button onClick={handleModalDeleteOpen} className="action-btn">
-                <span className="text">Usuń zaznaczone</span>
-              </button>
             </div>
           ) : (
             <div></div>
@@ -165,7 +129,7 @@ const ActionBarEmployees = ({ idToDelete, user, teams }) => {
                 className="text d-flex flex-row action-btn"
                 onClick={(e) => handleFilterByCat("name", e)}
               >
-                <span className="next-to-sort-text">Imie pracownika</span>
+                <span className="next-to-sort-text">Nazwa Zespołu</span>
                 <div className="d-flex flex-column">
                   <FontAwesomeIcon
                     className={sortNameAsc ? "active" : "not-active"}
@@ -195,16 +159,16 @@ const ActionBarEmployees = ({ idToDelete, user, teams }) => {
             <span className="d-flex flex-row border-over-span">
               <button
                 className="text d-flex flex-row action-btn"
-                onClick={(e) => handleFilterByCat("surname", e)}
+                onClick={(e) => handleFilterByCat("employees", e)}
               >
-                <span className="next-to-sort-text">Nazwisko pracownika</span>
+                <span className="next-to-sort-text">Liczba pracowników</span>
                 <div className="d-flex flex-column">
                   <FontAwesomeIcon
-                    className={sortSurnameAsc ? "active" : "not-active"}
+                    className={sortEmployeesAsc ? "active" : "not-active"}
                     icon={faSortUp}
                   />
                   <FontAwesomeIcon
-                    className={sortSurnameDesc ? "active" : "not-active"}
+                    className={sortEmployeesDesc ? "active" : "not-active"}
                     icon={faSortDown}
                   />
                 </div>
@@ -213,51 +177,12 @@ const ActionBarEmployees = ({ idToDelete, user, teams }) => {
                 <input
                   type="text"
                   onChange={(e) => {
-                    setSearchSurname(e.target.value);
+                    setSearchEmployees(e.target.value);
                   }}
                 />
                 <button
                   className="text d-flex flex-row action-btn"
-                  onClick={(e) => handleSearch("surname", e)}
-                  value="surname"
-                >
-                  <FontAwesomeIcon icon={faSearch} />
-                </button>
-              </div>
-            </span>
-          </div>
-          <div
-            className="d-flex flex-row justify-content-around"
-            id="third-col"
-          >
-            <span className="d-flex flex-row border-over-span">
-              <button
-                className="text d-flex flex-row action-btn"
-                onClick={(e) => handleFilterByCat("team", e)}
-              >
-                <span className="next-to-sort-text">Zespół</span>
-                <div className="d-flex flex-column">
-                  <FontAwesomeIcon
-                    className={sortTeamAsc ? "active" : "not-active"}
-                    icon={faSortUp}
-                  />
-                  <FontAwesomeIcon
-                    className={sortTeamDesc ? "active" : "not-active"}
-                    icon={faSortDown}
-                  />
-                </div>
-              </button>
-              <div className="text d-flex flex-row border-over-span">
-                <input
-                  type="text"
-                  onChange={(e) => {
-                    setSearchTeam(e.target.value);
-                  }}
-                />
-                <button
-                  className="text d-flex flex-row action-btn"
-                  onClick={(e) => handleSearch("team", e)}
-                  value="team"
+                  onClick={(e) => handleSearch("employees", e)}
                 >
                   <FontAwesomeIcon icon={faSearch} />
                 </button>
@@ -266,18 +191,12 @@ const ActionBarEmployees = ({ idToDelete, user, teams }) => {
           </div>
         </div>
       </div>
-      <ModalCreateNewEmployees
+      <ModalCreateNewTeams
         modalCreateOpen={modalCreateOpen}
         setModalCreateOpen={setModalCreateOpen}
-        teams={teams}
-      />
-      <ModalDeleteManyEmployees
-        modalDeleteOpen={modalDeleteOpen}
-        setModalDeleteOpen={setModalDeleteOpen}
-        idToDelete={idToDelete}
       />
     </section>
   );
 };
 
-export default ActionBarEmployees;
+export default ActionBarTeams;

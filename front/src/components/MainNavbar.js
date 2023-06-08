@@ -14,7 +14,7 @@ const PAGES = [
   { path: "/users", title: "Użytkownicy" },
 ];
 
-let PAGES_URL_USER = [
+const PAGES_URL_USER = [
   { path: "/routes", title: "Trasy" },
   { path: "/schools", title: "Szkoły" },
   { path: "/concerts", title: "Koncerty" },
@@ -22,7 +22,7 @@ let PAGES_URL_USER = [
   { path: "/employees", title: "Pracownicy" },
   { path: "/maps", title: "Mapy" },
 ];
-let PAGES_URL_ADMIN = [
+const PAGES_URL_ADMIN = [
   { path: "/routes", title: "Trasy" },
   { path: "/schools", title: "Szkoły" },
   { path: "/concerts", title: "Koncerty" },
@@ -66,7 +66,7 @@ const MainNavbar = ({ user, setUser }) => {
       </Link>
       <div className="sub-main-nav d-flex flex-column align-items-center">
         <div>{navigationTitle}</div>
-        {user && admin_rights === "0" && (
+        {user && (admin_rights === "0" || admin_rights === "1") && (
           <div className="d-flex flex-row justify-content-between">
             {PAGES_URL_USER.map((page) => (
               <Link
@@ -87,7 +87,7 @@ const MainNavbar = ({ user, setUser }) => {
             ))}
           </div>
         )}
-        {user && admin_rights === "1" && (
+        {user && admin_rights === "2" && (
           <div className="d-flex flex-row justify-content-between">
             {PAGES_URL_ADMIN.map((page) => (
               <Link

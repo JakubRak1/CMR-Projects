@@ -13,20 +13,30 @@ const Employees = ({ user }) => {
   const [errMsg, setErrMsg] = useState("");
 
   const [selectedIds, setSelectedIds] = useState([]);
+  const [allTeams, setAllTeams] = useState("");
 
   const location = useLocation();
+
   useEffect(() => {
     getData();
   }, []);
 
   const getData = async () => {
+    let teamsArray = [];
     try {
       const response = await api.get(
         location.pathname + window.location.search
       );
       if (response.status === 200) {
         setIsLoading(false);
-        setData(response.data);
+        const data = response.data.data;
+        setData(data);
+
+        data.forEach((object) => {
+          teamsArray.push(object.team);
+        });
+        teamsArray = [...new Set(teamsArray)];
+        setAllTeams(teamsArray);
       }
     } catch (err) {
       setIsLoading(false);
@@ -51,7 +61,11 @@ const Employees = ({ user }) => {
       } else {
         return (
           <section>
-            <ActionBarEmployess idToDelete={selectedIds} />
+            <ActionBarEmployess
+              idToDelete={selectedIds}
+              user={user}
+              teams={allTeams}
+            />
             <div className="d-flex justify-content-center mt-5">
               <table className="table table-content">
                 <thead className="table-dark">
@@ -59,11 +73,15 @@ const Employees = ({ user }) => {
                     <th scope="col">Imie</th>
                     <th scope="col">Nazwisko</th>
                     <th scope="col">Zespół</th>
-                    <th scope="col">Opcje</th>
+                    {user.admin_rights !== "0" ? (
+                      <th scope="col">Opcje</th>
+                    ) : (
+                      <th></th>
+                    )}
                   </tr>
                 </thead>
                 <tbody>
-                  {data.data.map((employee) => (
+                  {data.map((employee) => (
                     <EmployeesTable
                       key={employee.id}
                       id={employee.id}
@@ -71,6 +89,8 @@ const Employees = ({ user }) => {
                       surname={employee.surname}
                       team={employee.team}
                       onCheckboxChange={handleIdDeleteChange}
+                      user={user}
+                      teams={allTeams}
                     />
                   ))}
                 </tbody>

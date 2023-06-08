@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ModalEditSchool from "./Modals/ModalEditSchool";
-import ModalDeleteSchool from "./Modals/ModalDeleteSchool";
+import ModalDeleteOneRecord from "./Modals/ModalDeleteOneRecord";
 import "../static/styles/schoolTable.css";
 
 const SchoolsTable = ({
@@ -11,6 +11,7 @@ const SchoolsTable = ({
   phoneNumber,
   additionalInformation,
   onCheckboxChange,
+  user,
 }) => {
   const [modalEditOpen, setModalEditOpen] = useState(false);
   const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
@@ -35,26 +36,30 @@ const SchoolsTable = ({
         <td>{buildingNumber}</td>
         <td>{phoneNumber}</td>
         <td>{additionalInformation}</td>
-        <td>
-          <div className="d-flex flex-row justify-content-around">
-            <div className="checkbox-wrapper-19">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                onChange={handleCheckboxChange}
-                value={id}
-                id={"cb" + id}
-              />
-              <label for={"cb" + id} className="check-box" />
+        {user.admin_rights !== "0" ? (
+          <td>
+            <div className="d-flex flex-row justify-content-around">
+              <div className="checkbox-wrapper-19">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  onChange={handleCheckboxChange}
+                  value={id}
+                  id={"cb" + id}
+                />
+                <label for={"cb" + id} className="check-box" />
+              </div>
+              <button className="action-btn" onClick={handleOpenModalDelete}>
+                Usuń
+              </button>
+              <button className="action-btn" onClick={handleOpenModalEdit}>
+                Edytuj
+              </button>
             </div>
-            <button className="action-btn" onClick={handleOpenModalDelete}>
-              Usuń
-            </button>
-            <button className="action-btn" onClick={handleOpenModalEdit}>
-              Edytuj
-            </button>
-          </div>
-        </td>
+          </td>
+        ) : (
+          <td></td>
+        )}
       </tr>
       <ModalEditSchool
         modalEditOpen={modalEditOpen}
@@ -66,10 +71,11 @@ const SchoolsTable = ({
         phoneNumber={phoneNumber}
         additionalInformation={additionalInformation}
       />
-      <ModalDeleteSchool
+      <ModalDeleteOneRecord
         modalDeleteOpen={modalDeleteOpen}
         setModalDeleteOpen={setModalDeleteOpen}
         id={id}
+        type={"schools"}
       />
     </>
   );

@@ -2,45 +2,44 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import api from "../api/apiConfig";
 import ConnectionError from "../components/ConectionError";
-import SchoolsTable from "../components/SchoolsTable";
+import TeamsTable from "../components/TeamsTable";
 import LoadingIcon from "../components/LoadingIcon";
-import ActionBarSchool from "../components/ActionBarSchool";
+import ActionBarTeams from "../components/ActionBarTeams";
 import "../static/styles/schools.css";
 
-// const URL_SCHOOLS = "/schools";
-
-const Schools = ({ user }) => {
+const Teams = ({ user }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState("");
   const [errMsg, setErrMsg] = useState("");
 
-  const [selectedIds, setSelectedIds] = useState([]);
+  const [allTeams, setAllTeams] = useState("");
 
   const location = useLocation();
+
   useEffect(() => {
     getData();
   }, []);
 
   const getData = async () => {
+    let teamsArray = [];
     try {
       const response = await api.get(
         location.pathname + window.location.search
       );
       if (response.status === 200) {
         setIsLoading(false);
-        setData(response.data);
+        const data = response.data.data;
+        setData(data);
+
+        data.forEach((object) => {
+          teamsArray.push(object.team);
+        });
+        teamsArray = [...new Set(teamsArray)];
+        setAllTeams(teamsArray);
       }
     } catch (err) {
       setIsLoading(false);
       setErrMsg("Bład połączenia, spróbuj ponownie za jakiś czas");
-    }
-  };
-
-  const handleIdDeleteChange = (id, isChecked) => {
-    if (isChecked) {
-      setSelectedIds([...selectedIds, id]);
-    } else {
-      setSelectedIds(selectedIds.filter((selectedId) => selectedId !== id));
     }
   };
 
@@ -53,16 +52,13 @@ const Schools = ({ user }) => {
       } else {
         return (
           <section>
-            <ActionBarSchool idToDelete={selectedIds} user={user} />
+            <ActionBarTeams user={user} />
             <div className="d-flex justify-content-center mt-5">
               <table className="table table-content">
                 <thead className="table-dark">
                   <tr>
-                    <th scope="col">Nazwa</th>
-                    <th scope="col">Ulica</th>
-                    <th scope="col">Numer budynku</th>
-                    <th scope="col">Telefon</th>
-                    <th scope="col">Dodatkowe informacje</th>
+                    <th scope="col">Zespół</th>
+                    <th scope="col">Liczba pracowników</th>
                     {user.admin_rights !== "0" ? (
                       <th scope="col">Opcje</th>
                     ) : (
@@ -71,17 +67,14 @@ const Schools = ({ user }) => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.data.map((school) => (
-                    <SchoolsTable
-                      key={school.id}
-                      id={school.id}
-                      schoolName={school.schoolName}
-                      streetName={school.streetName}
-                      buildingNumber={school.buildingNumber}
-                      phoneNumber={school.phoneNumber}
-                      additionalInformation={school.additionalInformation}
-                      onCheckboxChange={handleIdDeleteChange}
+                  {data.map((team) => (
+                    <TeamsTable
+                      key={team.id}
+                      id={team.id}
+                      name={team.name}
+                      employees={team.employees}
                       user={user}
+                      teams={allTeams}
                     />
                   ))}
                 </tbody>
@@ -102,4 +95,4 @@ const Schools = ({ user }) => {
       <ConnectionError errorMsg={"Musisz być zalogowany aby przejść dalej"} />
     );
 };
-export default Schools;
+export default Teams;

@@ -4,12 +4,13 @@ import { useState } from "react";
 import api from "../../api/apiConfig";
 import styles from "../../static/styles/modals";
 
-const ModalDeleteSchool = (props) => {
+const ModalDeleteOneRecord = (props) => {
   const [modalMessageOpen, setModalMessageOpen] = useState(false);
   const [message, setMessage] = useState("");
 
   const deleteRecord = async (e) => {
-    const URL_DELETE = `schools/id${props.id}`;
+    const URL_DELETE = `${props.type}/id${props.id}`;
+    console.log(URL_DELETE);
     e.preventDefault();
     try {
       const response = await api.delete(URL_DELETE);
@@ -58,5 +59,4 @@ const ModalDeleteSchool = (props) => {
     </section>
   );
 };
-export default ModalDeleteSchool;
-// Change to universal modal
+export default ModalDeleteOneRecord;
