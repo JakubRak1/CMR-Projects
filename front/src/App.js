@@ -6,6 +6,7 @@ import Error from "./pages/Error";
 import Schools from "./pages/Schools";
 import Teams from "./pages/Teams";
 import Employees from "./pages/Employees";
+import Users from "./pages/Users";
 import CookiesMessage from "./components/CookiesMessage";
 import MainNavbar from "./components/MainNavbar";
 import "./static/styles/mainStyles.css";
@@ -42,7 +43,9 @@ function App() {
         <Route path="/employees" element={<Employees user={user} />} />
         <Route path="/employees/*" element={<Employees user={user} />} />
         <Route path="/maps" element={<div>Mapy do robienia</div>} />
-        <Route path="/users" element={<div>Użytkownicy do robienia</div>} />
+        <Route path="/users" element={<Users user={user} />} />
+        <Route path="/users/*" element={<Users user={user} />} />
+        {/* <Route path="/users" element={<div>Użytkownicy do robienia</div>} /> */}
         {/* To fix error page */}
         <Route path="*" element={<Error />} />
       </Routes>

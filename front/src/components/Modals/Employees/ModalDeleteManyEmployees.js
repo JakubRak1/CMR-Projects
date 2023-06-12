@@ -1,8 +1,8 @@
 import { Modal } from "react-bootstrap";
 import { useState } from "react";
-import api from "../../api/apiConfig";
-import ModalMessage from "./ModalMessage";
-import styles from "../../static/styles/modals";
+import api from "../../../api/apiConfig";
+import ModalMessage from "../utility/ModalMessage";
+import styles from "../../../static/styles/modals";
 
 const URL_DELETE_MANY = "/employees";
 

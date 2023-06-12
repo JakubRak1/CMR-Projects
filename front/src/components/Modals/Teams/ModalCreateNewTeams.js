@@ -1,17 +1,20 @@
+import { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
+import Cookies from "js-cookie";
+import api from "../../../api/apiConfig";
+import ModalMessage from "../utility/ModalMessage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { useState, useEffect } from "react";
-import ModalMessage from "./ModalMessage";
-import api from "../../api/apiConfig";
-import styles from "../../static/styles/modals";
+import styles from "../../../static/styles/modals";
 
-const ModalEditTeam = (props) => {
+const URL_POST = "/teams/create-new";
+
+const ModalCreateNewTeams = (props) => {
   const [modalMessageOpen, setModalMessageOpen] = useState(false);
   const [message, setMessage] = useState("");
 
   const [validProps, setValidProps] = useState({
-    validNameEdit: true,
+    validNameEdit: "",
   });
 
   const [validationError, setValidationError] = useState({
@@ -19,8 +22,22 @@ const ModalEditTeam = (props) => {
   });
 
   const [formData, setFormData] = useState({
-    name: props.name,
+    teamName: "",
   });
+
+  const saveDataToCookies = () => {
+    Object.keys(formData).forEach((key) => {
+      Cookies.set(key, formData[key], { expires: null });
+    });
+  };
+
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+    saveDataToCookies();
+  };
 
   const handleValidProps = (nameOfProps, value) => {
     setValidProps({
@@ -36,45 +53,45 @@ const ModalEditTeam = (props) => {
     });
   };
 
-  const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  // Validation
-  const editRecord = async (e) => {
-    const URL_PATCH = `teams/id${props.id}`;
+  const handlePostNewRecord = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.patch(URL_PATCH, formData);
+      const response = await api.post(URL_POST, formData);
       if (response.status === 200) {
-        setMessage("Pomyślnie zedytowano rekord");
+        setMessage("Pomyślnie dodano nowy rekord");
         setModalMessageOpen(true);
-        props.setModalEditOpen(false);
+        props.setModalCreateOpen(false);
       }
     } catch (err) {
       if (err.response) {
-        setMessage("Nie można zedytować rekordu spróbuj ponownie później");
+        setMessage(
+          `Brak możliwości dodania nowego rekoru, sprawdź czy taki juz nie istnieje i spróbuj ponownie ${err}`
+        );
       } else if (err.request) {
-        setMessage("Błąd połączenia, spróbuj ponownie za jakiś czas");
+        setMessage("Bład połączenia, spróbuj ponownie za jakiś czas");
       }
       setModalMessageOpen(true);
-      props.setModalEditOpen(false);
+      props.setModalCreateOpen(false);
     }
   };
 
   useEffect(() => {
+    const savedData = Cookies.get();
+    setFormData({
+      teamName: savedData.teamName || "",
+    });
+  }, []);
+
+  useEffect(() => {
     let result = true;
     handleValidationError("validationErrorName", "");
-    if (formData.name.length < 2 || formData.name.length > 100) {
+    if (formData.teamName.length < 2 || formData.teamName.length > 100) {
       result = false;
       handleValidationError(
         "validationErrorName",
         "Nazwa jest za krótka lub za długa"
       );
-    } else if (!/^[a-zA-Z0-9\s\-']+$/.test(formData.name)) {
+    } else if (!/^[a-zA-Z0-9\s\-']+$/.test(formData.teamName)) {
       result = false;
       handleValidationError(
         "validationErrorName",
@@ -82,24 +99,26 @@ const ModalEditTeam = (props) => {
       );
     }
     handleValidProps("validNameEdit", result);
-  }, [formData.name]);
+  }, [formData.teamName]);
 
   return (
     <section>
       <Modal
         size="lg"
-        show={props.modalEditOpen}
-        onHide={props.setModalEditOpen}
-        aria-labelledby="Edytuj rekord"
+        show={props.modalCreateOpen}
+        onHide={() => props.setModalCreateOpen(false)}
+        aria-labelledby="Dodaj nowy rekord Zespoły"
       >
         <Modal.Header closeButton>
-          <Modal.Title style={styles.title}>Edytuj {props.name}</Modal.Title>
+          <Modal.Title style={styles.title}>
+            Dodaj nowy rekord do bazy danych
+          </Modal.Title>
         </Modal.Header>
-        <Modal.Body style={styles.body}>
-          <form onSubmit={editRecord}>
+        <Modal.Body>
+          <form onSubmit={handlePostNewRecord} style={styles.body}>
             <div
               className={
-                validProps.validNameEdit || !formData.name
+                validProps.validNameEdit || !formData.teamName
                   ? "hidden"
                   : "invalid"
               }
@@ -113,7 +132,7 @@ const ModalEditTeam = (props) => {
               </span>
               <span
                 className={
-                  validProps.validNameEdit || !formData.name
+                  validProps.validNameEdit || !formData.teamName
                     ? "hidden"
                     : "invalid"
                 }
@@ -124,10 +143,11 @@ const ModalEditTeam = (props) => {
             <input
               className="form-control mt-2 mb-2"
               type="text"
+              id="teamName"
+              name="teamName"
               required
               onChange={handleInputChange}
-              name="name"
-              value={formData.name}
+              value={formData.teamName}
               aria-invalid={validProps.validNameEdit ? "false" : "true"}
             />
             <button
@@ -135,7 +155,7 @@ const ModalEditTeam = (props) => {
               id="submit-btn"
               disabled={!validProps.validNameEdit ? true : false}
             >
-              Edytuj
+              Dodaj
             </button>
           </form>
         </Modal.Body>
@@ -148,4 +168,4 @@ const ModalEditTeam = (props) => {
     </section>
   );
 };
-export default ModalEditTeam;
+export default ModalCreateNewTeams;

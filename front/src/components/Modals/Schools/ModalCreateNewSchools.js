@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
 import Cookies from "js-cookie";
-import api from "../../api/apiConfig";
-import ModalMessage from "./ModalMessage";
+import api from "../../../api/apiConfig";
+import ModalMessage from "../utility/ModalMessage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
-import styles from "../../static/styles/modals";
+import styles from "../../../static/styles/modals";
 
 const URL_POST = "/schools/create-new";
 

@@ -1,8 +1,8 @@
 import { Modal } from "react-bootstrap";
 import ModalMessage from "./ModalMessage";
 import { useState } from "react";
-import api from "../../api/apiConfig";
-import styles from "../../static/styles/modals";
+import api from "../../../api/apiConfig";
+import styles from "../../../static/styles/modals";
 
 const ModalDeleteOneRecord = (props) => {
   const [modalMessageOpen, setModalMessageOpen] = useState(false);

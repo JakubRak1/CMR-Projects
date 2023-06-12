@@ -10,16 +10,19 @@ app.use(cors());
 // Mock user data
 const users = [
   {
+    id: 1,
     username: "mariusz",
     password: "Krukidziobia1@",
     admin_rights: 2,
   },
   {
+    id: 2,
     username: "w1234",
     password: "User1@34",
     admin_rights: 1,
   },
   {
+    id: 3,
     username: "watch",
     password: "watch",
     admin_rights: 0,
@@ -333,6 +336,17 @@ app.get("/schools", async (req, res) => {
     });
   }, 5000);
 });
+
+app.patch("/schools/:id", async (req, res) => {
+  const id = req.params.id;
+  const data = req.body;
+  console.log(data);
+  res.status(200).json({
+    status: "success",
+    data: data,
+  });
+});
+
 //
 //
 // employee
@@ -481,6 +495,16 @@ app.get("/employees", async (req, res) => {
   }, 5000);
 });
 
+app.patch("/employees/:id", async (req, res) => {
+  const id = req.params.id;
+  const data = req.body;
+  console.log(data);
+  res.status(200).json({
+    status: "success",
+    data: data,
+  });
+});
+
 //
 //
 // teams
@@ -585,6 +609,101 @@ app.get("/teams", async (req, res) => {
   }, 5000);
 });
 
+app.patch("/teams/:id", async (req, res) => {
+  const id = req.params.id;
+  const data = req.body;
+  console.log(data);
+  res.status(200).json({
+    status: "success",
+    data: data,
+  });
+});
+
+//
+//
+// users for admin
+//
+//
+app.post("/users/create-new", async (req, res) => {
+  console.log(req.body);
+  res.status(200).json({
+    status: "success",
+  });
+});
+
+app.get("/users/id:id", async (req, res) => {
+  const id = req.params.id;
+  const teams = teams.find((team) => team.id === parseInt(id));
+  console.log(teams);
+  res.status(200).json({
+    status: "success",
+    data: teams,
+  });
+});
+
+app.get("/users/search", async (req, res) => {
+  let search = "";
+  let data = users;
+  search = req.query.username;
+  data = data.filter((user) => user.username.includes(search));
+  res.status(200).json({
+    status: "success",
+    resault: data.length,
+    data,
+    search: search,
+  });
+});
+
+// Delete by specific id
+app.delete("/users/:id", async (req, res) => {
+  const id = req.params.id.replace("id", "");
+  const foundedUser = users.find((user) => user.id === parseInt(id));
+  console.log(foundedUser);
+  console.log(id);
+  res.status(200).json({
+    status: "success",
+    data: foundedUser,
+    message: "Deleted successfully",
+  });
+});
+
+// Timeout for loading porpuse
+app.get("/users", async (req, res) => {
+  setTimeout(() => {
+    const noAdminUsers = users.filter((user) => user.admin_rights <= 1);
+    const data = noAdminUsers.map((user) => ({
+      id: user.id,
+      username: user.username,
+      admin_rights: user.admin_rights,
+    }));
+    res.status(200).json({
+      status: "success",
+      resault: data.length,
+      data,
+    });
+  }, 5000);
+});
+
+app.patch("/users/password/:id", async (req, res) => {
+  const id = req.params.id;
+  const data = req.body;
+  console.log(data);
+  res.status(200).json({
+    status: "success",
+    data: data,
+  });
+});
+
+app.patch("/users/admin_rights/:id", async (req, res) => {
+  const id = req.params.id;
+  const data = req.body;
+  console.log(data);
+  res.status(200).json({
+    status: "success",
+    data: data,
+  });
+});
+
 //
 //
 // Routes
@@ -600,16 +719,6 @@ app.get("/routes", async (req, res) => {
       data,
     });
   }, 5000);
-});
-
-app.patch("/schools/:id", async (req, res) => {
-  const id = req.params.id;
-  const data = req.body;
-  console.log(data);
-  res.status(200).json({
-    status: "success",
-    data: data,
-  });
 });
 
 // Start the server

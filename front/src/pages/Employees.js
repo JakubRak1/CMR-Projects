@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import api from "../api/apiConfig";
 import ConnectionError from "../components/ConectionError";
-import EmployeesTable from "../components/EmployeesTable";
+import EmployeesTable from "../components/Employees/EmployeesTable";
 import LoadingIcon from "../components/LoadingIcon";
-import ActionBarEmployess from "../components/ActionBarEmployees";
+import ActionBarEmployess from "../components/Employees/ActionBarEmployees";
 import "../static/styles/schools.css";
 
 const Employees = ({ user }) => {

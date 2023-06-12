@@ -2,9 +2,9 @@ import { Modal } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useState, useEffect } from "react";
-import ModalMessage from "./ModalMessage";
-import api from "../../api/apiConfig";
-import styles from "../../static/styles/modals";
+import ModalMessage from "../utility/ModalMessage";
+import api from "../../../api/apiConfig";
+import styles from "../../../static/styles/modals";
 
 const ModalEditSchool = (props) => {
   const [modalMessageOpen, setModalMessageOpen] = useState(false);

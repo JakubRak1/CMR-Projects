@@ -1,16 +1,17 @@
 import { useState } from "react";
-import ModalEditEmployee from "./Modals/ModalEditEmployee";
-import ModalDeleteOneRecord from "./Modals/ModalDeleteOneRecord";
-import "../static/styles/schoolTable.css";
+import ModalEditSchool from "../Modals/Schools/ModalEditSchool";
+import ModalDeleteOneRecord from "../Modals/utility/ModalDeleteOneRecord";
+import "../../static/styles/schoolTable.css";
 
-const EmployeesTable = ({
+const SchoolsTable = ({
   id,
-  name,
-  surname,
-  team,
+  schoolName,
+  streetName,
+  buildingNumber,
+  phoneNumber,
+  additionalInformation,
   onCheckboxChange,
   user,
-  teams,
 }) => {
   const [modalEditOpen, setModalEditOpen] = useState(false);
   const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
@@ -30,9 +31,11 @@ const EmployeesTable = ({
   return (
     <>
       <tr key={id}>
-        <td>{name}</td>
-        <td>{surname}</td>
-        <td>{team}</td>
+        <td>{schoolName}</td>
+        <td>{streetName}</td>
+        <td>{buildingNumber}</td>
+        <td>{phoneNumber}</td>
+        <td>{additionalInformation}</td>
         {user.admin_rights !== "0" ? (
           <td>
             <div className="d-flex flex-row justify-content-around">
@@ -58,23 +61,24 @@ const EmployeesTable = ({
           <td></td>
         )}
       </tr>
-      <ModalEditEmployee
+      <ModalEditSchool
         modalEditOpen={modalEditOpen}
         setModalEditOpen={setModalEditOpen}
         id={id}
-        name={name}
-        surname={surname}
-        team={team}
-        teams={teams}
+        schoolName={schoolName}
+        streetName={streetName}
+        buildingNumber={buildingNumber}
+        phoneNumber={phoneNumber}
+        additionalInformation={additionalInformation}
       />
       <ModalDeleteOneRecord
         modalDeleteOpen={modalDeleteOpen}
         setModalDeleteOpen={setModalDeleteOpen}
         id={id}
-        type={"employees"}
+        type={"schools"}
       />
     </>
   );
 };
 
-export default EmployeesTable;
+export default SchoolsTable;

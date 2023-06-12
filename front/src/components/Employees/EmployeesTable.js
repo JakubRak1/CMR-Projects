@@ -1,17 +1,16 @@
 import { useState } from "react";
-import ModalEditSchool from "./Modals/ModalEditSchool";
-import ModalDeleteOneRecord from "./Modals/ModalDeleteOneRecord";
-import "../static/styles/schoolTable.css";
+import ModalEditEmployee from "../Modals/Employees/ModalEditEmployee";
+import ModalDeleteOneRecord from "../Modals/utility/ModalDeleteOneRecord";
+import "../../static/styles/schoolTable.css";
 
-const SchoolsTable = ({
+const EmployeesTable = ({
   id,
-  schoolName,
-  streetName,
-  buildingNumber,
-  phoneNumber,
-  additionalInformation,
+  name,
+  surname,
+  team,
   onCheckboxChange,
   user,
+  teams,
 }) => {
   const [modalEditOpen, setModalEditOpen] = useState(false);
   const [modalDeleteOpen, setModalDeleteOpen] = useState(false);
@@ -31,11 +30,9 @@ const SchoolsTable = ({
   return (
     <>
       <tr key={id}>
-        <td>{schoolName}</td>
-        <td>{streetName}</td>
-        <td>{buildingNumber}</td>
-        <td>{phoneNumber}</td>
-        <td>{additionalInformation}</td>
+        <td>{name}</td>
+        <td>{surname}</td>
+        <td>{team}</td>
         {user.admin_rights !== "0" ? (
           <td>
             <div className="d-flex flex-row justify-content-around">
@@ -61,24 +58,23 @@ const SchoolsTable = ({
           <td></td>
         )}
       </tr>
-      <ModalEditSchool
+      <ModalEditEmployee
         modalEditOpen={modalEditOpen}
         setModalEditOpen={setModalEditOpen}
         id={id}
-        schoolName={schoolName}
-        streetName={streetName}
-        buildingNumber={buildingNumber}
-        phoneNumber={phoneNumber}
-        additionalInformation={additionalInformation}
+        name={name}
+        surname={surname}
+        team={team}
+        teams={teams}
       />
       <ModalDeleteOneRecord
         modalDeleteOpen={modalDeleteOpen}
         setModalDeleteOpen={setModalDeleteOpen}
         id={id}
-        type={"schools"}
+        type={"employees"}
       />
     </>
   );
 };
 
-export default SchoolsTable;
+export default EmployeesTable;

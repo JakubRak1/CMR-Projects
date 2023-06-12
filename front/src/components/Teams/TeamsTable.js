@@ -1,8 +1,8 @@
 import { useState } from "react";
-import ModalEditTeam from "./Modals/ModalEditTeam";
-import ModalDeleteOneRecord from "./Modals/ModalDeleteOneRecord";
-import ModalMessageNoReaload from "../components/Modals/ModalMessageNoReload";
-import "../static/styles/schoolTable.css";
+import ModalEditTeam from "../Modals/Teams/ModalEditTeam";
+import ModalDeleteOneRecord from "../Modals/utility/ModalDeleteOneRecord";
+import ModalMessageNoReaload from "../Modals/utility/ModalMessageNoReload";
+import "../../static/styles/schoolTable.css";
 
 const TeamsTable = ({ id, name, employees, user, teams }) => {
   const [modalEditOpen, setModalEditOpen] = useState(false);

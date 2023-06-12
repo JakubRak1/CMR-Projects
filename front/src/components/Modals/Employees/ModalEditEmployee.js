@@ -1,22 +1,18 @@
-import { useState, useEffect } from "react";
 import { Modal } from "react-bootstrap";
-import Cookies from "js-cookie";
-import api from "../../api/apiConfig";
-import ModalMessage from "./ModalMessage";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
-import styles from "../../static/styles/modals";
+import { useState, useEffect } from "react";
+import ModalMessage from "../utility/ModalMessage";
+import api from "../../../api/apiConfig";
+import styles from "../../../static/styles/modals";
 
-const URL_POST = "/employees/create-new";
-
-const ModalCreateNewEmployees = (props) => {
+const ModalEditEmployee = (props) => {
   const [modalMessageOpen, setModalMessageOpen] = useState(false);
   const [message, setMessage] = useState("");
 
   const [validProps, setValidProps] = useState({
-    validNameEdit: "",
-    validSurnameEdit: "",
-    validTeamEdit: "",
+    validNameEdit: true,
+    validSurnameEdit: true,
   });
 
   const [validationError, setValidationError] = useState({
@@ -25,24 +21,10 @@ const ModalCreateNewEmployees = (props) => {
   });
 
   const [formData, setFormData] = useState({
-    name: "",
-    surname: "",
-    team: "",
+    name: props.name,
+    surname: props.surname,
+    team: props.team,
   });
-
-  const saveDataToCookies = () => {
-    Object.keys(formData).forEach((key) => {
-      Cookies.set(key, formData[key], { expires: null });
-    });
-  };
-
-  const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-    saveDataToCookies();
-  };
 
   const handleValidProps = (nameOfProps, value) => {
     setValidProps({
@@ -58,36 +40,34 @@ const ModalCreateNewEmployees = (props) => {
     });
   };
 
-  const handlePostNewRecord = async (e) => {
+  const handleInputChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  // Validation
+  const editRecord = async (e) => {
+    const URL_PATCH = `employees/id${props.id}`;
     e.preventDefault();
     try {
-      const response = await api.post(URL_POST, formData);
+      const response = await api.patch(URL_PATCH, formData);
       if (response.status === 200) {
-        setMessage("Pomyślnie dodano nowy rekord");
+        setMessage("Pomyślnie zedytowano rekord");
         setModalMessageOpen(true);
-        props.setModalCreateOpen(false);
+        props.setModalEditOpen(false);
       }
     } catch (err) {
       if (err.response) {
-        setMessage(
-          `Brak możliwości dodania nowego rekoru, sprawdź czy taki juz nie istnieje i spróbuj ponownie ${err}`
-        );
+        setMessage("Nie można zedytować rekordu spróbuj ponownie później");
       } else if (err.request) {
-        setMessage("Bład połączenia, spróbuj ponownie za jakiś czas");
+        setMessage("Błąd połączenia, spróbuj ponownie za jakiś czas");
       }
       setModalMessageOpen(true);
-      props.setModalCreateOpen(false);
+      props.setModalEditOpen(false);
     }
   };
-
-  useEffect(() => {
-    const savedData = Cookies.get();
-    setFormData({
-      name: savedData.name || "",
-      surname: savedData.surname || "",
-      team: savedData.team || "",
-    });
-  }, []);
 
   useEffect(() => {
     let result = true;
@@ -127,29 +107,21 @@ const ModalCreateNewEmployees = (props) => {
     handleValidProps("validSurnameEdit", result);
   }, [formData.surname]);
 
-  useEffect(() => {
-    let result = true;
-    if (formData.team === "") {
-      result = false;
-    }
-    handleValidProps("validTeamEdit", result);
-  }, [formData.team]);
-
   return (
     <section>
       <Modal
         size="lg"
-        show={props.modalCreateOpen}
-        onHide={() => props.setModalCreateOpen(false)}
-        aria-labelledby="Dodaj nowy rekord Pracownicy"
+        show={props.modalEditOpen}
+        onHide={props.setModalEditOpen}
+        aria-labelledby="Edytuj rekord"
       >
         <Modal.Header closeButton>
           <Modal.Title style={styles.title}>
-            Dodaj nowy rekord do bazy danych
+            Edytuj {props.name} {props.surname}
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <form onSubmit={handlePostNewRecord} style={styles.body}>
+        <Modal.Body style={styles.body}>
+          <form onSubmit={editRecord}>
             <div
               className={
                 validProps.validNameEdit || !formData.name
@@ -160,7 +132,7 @@ const ModalCreateNewEmployees = (props) => {
               {validationError.validationErrorName}
             </div>
             <label>
-              Imie pracownika
+              Imię pracownika
               <span className={validProps.validNameEdit ? "valid" : "hidden"}>
                 <FontAwesomeIcon icon={faCheck} />
               </span>
@@ -177,10 +149,9 @@ const ModalCreateNewEmployees = (props) => {
             <input
               className="form-control mt-2 mb-2"
               type="text"
-              id="name"
-              name="name"
               required
               onChange={handleInputChange}
+              name="name"
               value={formData.name}
               aria-invalid={validProps.validNameEdit ? "false" : "true"}
             />
@@ -213,38 +184,36 @@ const ModalCreateNewEmployees = (props) => {
             <input
               className="form-control mt-2 mb-2"
               type="text"
-              id="surname"
-              name="surname"
               required
               onChange={handleInputChange}
+              name="surname"
               value={formData.surname}
               aria-invalid={validProps.validSurnameEdit ? "false" : "true"}
             />
             <label>Zespół</label>
-            <select
-              className="mt-2 mb-2"
-              id="team"
-              name="team"
-              value={formData.team}
-              onChange={handleInputChange}
-            >
-              <option value="">Wybierz zespół</option>
-              {props.teams.map((team) => (
-                <option value={team}>{team}</option>
-              ))}
-            </select>
+            <div>
+              <select
+                className="mt-2 mb-2"
+                id="team"
+                name="team"
+                value={formData.team}
+                onChange={handleInputChange}
+              >
+                {props.teams.map((team) => (
+                  <option value={team}>{team}</option>
+                ))}
+              </select>
+            </div>
             <button
               className="btn btn-primary mt-3 mb-2 p-3"
               id="submit-btn"
               disabled={
-                !validProps.validNameEdit ||
-                !validProps.validSurnameEdit ||
-                !validProps.validTeamEdit
+                !validProps.validNameEdit || !validProps.validSurnameEdit
                   ? true
                   : false
               }
             >
-              Dodaj
+              Edytuj
             </button>
           </form>
         </Modal.Body>
@@ -257,4 +226,4 @@ const ModalCreateNewEmployees = (props) => {
     </section>
   );
 };
-export default ModalCreateNewEmployees;
+export default ModalEditEmployee;

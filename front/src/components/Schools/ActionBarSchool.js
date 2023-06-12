@@ -6,10 +6,10 @@ import {
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate, useLocation } from "react-router-dom";
-import ModalCreateNewSchools from "./Modals/ModalCreateNewSchools";
-import ModalDeleteManySchools from "./Modals/ModalDeleteManySchools";
+import ModalCreateNewSchools from "../Modals/Schools/ModalCreateNewSchools";
+import ModalDeleteManySchools from "../Modals/Schools/ModalDeleteManySchools";
 
-import "../static/styles/actionBarSchool.css";
+import "../../static/styles/actionBarSchool.css";
 
 const ActionBarSchool = ({ idToDelete, user }) => {
   const [modalCreateOpen, setModalCreateOpen] = useState(false);

@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import api from "../api/apiConfig";
 import ConnectionError from "../components/ConectionError";
-import SchoolsTable from "../components/SchoolsTable";
+import SchoolsTable from "../components/Schools/SchoolsTable";
 import LoadingIcon from "../components/LoadingIcon";
-import ActionBarSchool from "../components/ActionBarSchool";
+import ActionBarSchool from "../components/Schools/ActionBarSchool";
 import "../static/styles/schools.css";
 
 // const URL_SCHOOLS = "/schools";

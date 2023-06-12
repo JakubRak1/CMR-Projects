@@ -2,17 +2,15 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import api from "../api/apiConfig";
 import ConnectionError from "../components/ConectionError";
-import TeamsTable from "../components/Teams/TeamsTable";
+import UsersTable from "../components/Users/UsersTable";
 import LoadingIcon from "../components/LoadingIcon";
-import ActionBarTeams from "../components/Teams/ActionBarTeams";
+import ActionBarUsers from "../components/Users/ActionBarUsers";
 import "../static/styles/schools.css";
 
-const Teams = ({ user }) => {
+const Users = ({ user }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState("");
   const [errMsg, setErrMsg] = useState("");
-
-  const [allTeams, setAllTeams] = useState("");
 
   const location = useLocation();
 
@@ -21,7 +19,6 @@ const Teams = ({ user }) => {
   }, []);
 
   const getData = async () => {
-    let teamsArray = [];
     try {
       const response = await api.get(
         location.pathname + window.location.search
@@ -30,12 +27,6 @@ const Teams = ({ user }) => {
         setIsLoading(false);
         const data = response.data.data;
         setData(data);
-
-        data.forEach((object) => {
-          teamsArray.push(object.team);
-        });
-        teamsArray = [...new Set(teamsArray)];
-        setAllTeams(teamsArray);
       }
     } catch (err) {
       setIsLoading(false);
@@ -44,7 +35,7 @@ const Teams = ({ user }) => {
   };
 
   // Check for user login
-  if (user) {
+  if (user && user.admin_rights === "2") {
     // Check for connection
     if (!errMsg) {
       if (isLoading) {
@@ -52,29 +43,23 @@ const Teams = ({ user }) => {
       } else {
         return (
           <section>
-            <ActionBarTeams user={user} />
+            <ActionBarUsers />
             <div className="d-flex justify-content-center mt-5">
               <table className="table table-content">
                 <thead className="table-dark">
                   <tr>
-                    <th scope="col">Zespół</th>
-                    <th scope="col">Liczba pracowników</th>
-                    {user.admin_rights !== "0" ? (
-                      <th scope="col">Opcje</th>
-                    ) : (
-                      <th></th>
-                    )}
+                    <th scope="col">Nazwa użytkownika</th>
+                    <th scope="col">Uprawnienia</th>
+                    <th scope="col">Opcje</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {data.map((team) => (
-                    <TeamsTable
-                      key={team.id}
-                      id={team.id}
-                      name={team.name}
-                      employees={team.employees}
-                      user={user}
-                      teams={allTeams}
+                  {data.map((users) => (
+                    <UsersTable
+                      key={users.id}
+                      id={users.id}
+                      username={users.username}
+                      admin_rights={users.admin_rights}
                     />
                   ))}
                 </tbody>
@@ -92,7 +77,11 @@ const Teams = ({ user }) => {
     }
   } else
     return (
-      <ConnectionError errorMsg={"Musisz być zalogowany aby przejść dalej"} />
+      <ConnectionError
+        errorMsg={
+          "Musisz być zalogowany aby przejść dalej lub nie masz uprawnień do tej strony!"
+        }
+      />
     );
 };
-export default Teams;
+export default Users;
