@@ -43,11 +43,11 @@ ___
   # Running testing API
   cd api-chat
   npm i
-  npm run
+  npm start
   # Another terminal
   cd front
   npm i
-  npm run
+  npm start
 ```
 ## Docker run
 ```bash
