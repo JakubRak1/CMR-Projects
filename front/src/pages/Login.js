@@ -6,6 +6,7 @@ import Cookies from "js-cookie";
 import "../static/styles/login.css";
 
 const URL_LOGIN = "/login";
+const test_url = "/city/"
 
 const Login = ({ setUser, user }) => {
   const usernameRef = useRef();
@@ -32,6 +33,10 @@ const Login = ({ setUser, user }) => {
     const loginData = { username: username, password: hashedPassword };
 
     try {
+      // Test
+      const response_test = await api.get(test_url);
+      console.log(response_test)
+      // Test
       const response = await api.post(URL_LOGIN, loginData);
       if (response.status === 200) {
         setUser({

@@ -633,11 +633,11 @@ app.post("/users/create-new", async (req, res) => {
 
 app.get("/users/id:id", async (req, res) => {
   const id = req.params.id;
-  const teams = teams.find((team) => team.id === parseInt(id));
+  const users = users.find((user) => user.id === parseInt(id));
   console.log(teams);
   res.status(200).json({
     status: "success",
-    data: teams,
+    data: users,
   });
 });
 
