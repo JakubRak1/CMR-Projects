@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Cookies from "js-cookie";
 import Login from "./pages/Login";
+import Maps from "./pages/Maps"
+import MapsKey from "./api/mapAPIKey"
 import Error from "./pages/Error";
 import Schools from "./pages/Schools";
 import Teams from "./pages/Teams";
@@ -42,10 +44,9 @@ function App() {
         <Route path="/teams/*" element={<Teams user={user} />} />
         <Route path="/employees" element={<Employees user={user} />} />
         <Route path="/employees/*" element={<Employees user={user} />} />
-        <Route path="/maps" element={<div>Mapy do robienia</div>} />
+        <Route path="/maps" element={<Maps apiKey={MapsKey} />} />
         <Route path="/users" element={<Users user={user} />} />
         <Route path="/users/*" element={<Users user={user} />} />
-        {/* <Route path="/users" element={<div>Użytkownicy do robienia</div>} /> */}
         {/* To fix error page */}
         <Route path="*" element={<Error />} />
       </Routes>

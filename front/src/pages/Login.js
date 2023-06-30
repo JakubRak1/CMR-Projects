@@ -30,13 +30,13 @@ const Login = ({ setUser, user }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     const hashedPassword = bcrypt.hashSync(password, 10);
-    const loginData = { username: username, password: hashedPassword };
-
+    const loginData = { username: username, password: password };
+    // Plain text no decryption
     try {
-      // Test
-      const response_test = await api.get(test_url);
-      console.log(response_test)
-      // Test
+      // // Test
+      // const response_test = await api.get(test_url);
+      // console.log(response_test)
+      // // Test
       const response = await api.post(URL_LOGIN, loginData);
       if (response.status === 200) {
         setUser({

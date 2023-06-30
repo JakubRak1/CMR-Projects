@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const bcrypt = require("bcrypt");
 
 const app = express();
 app.use(express.json());
@@ -146,8 +145,8 @@ app.post("/login", async (req, res) => {
   const user = users.find((user) => user.username === username);
 
   if (user) {
-    const comparePassword = await bcrypt.compare(user.password, password);
-    if (comparePassword) {
+    // const comparePassword = await bcrypt.compare(user.password, password);
+    if (user.password === password) {
       res.status(200).json({
         status: "success",
         resault: user.lenght,
@@ -722,7 +721,7 @@ app.get("/routes", async (req, res) => {
 });
 
 // Start the server
-const PORT = 3000;
+const PORT = 2999;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
